@@ -2,5 +2,6 @@
 
 Github issues is too much overhead and clicking on the UI things. Therefore, the task list/tree is stored directly in the repository, as a Markdown file.
 
-* [ ] Write down the sketch of architecture, in particular, frontend/backend split
+* [x] Write down the sketch of architecture, in particular, frontend/backend split
+* [ ] Implement a simple server capable of serving JSON files from a given directory
 * [ ] Rationalize automatically generated name for the project somehow
