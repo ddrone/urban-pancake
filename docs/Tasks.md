@@ -4,4 +4,5 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 
 * [x] Write down the sketch of architecture, in particular, frontend/backend split
 * [ ] Implement a simple server capable of serving JSON files from a given directory
+  * [ ] Read tutorial for Ktor framework first and do some example projects
 * [ ] Rationalize automatically generated name for the project somehow
