@@ -8,11 +8,29 @@ export interface ProjectState {
 
 export class ProjectEditor implements m.ClassComponent<ProjectState> {
   renderUpdate(update: Update): m.Child {
-    if (update.content.kind === 'comment') {
-      return update.content.comment;
+    const content = update.content;
+    switch (content.kind) {
+      case 'comment':
+        return m('.comment', content.comment);
+      case 'created':
+        return m('.status-change', 'Project created');
+      case 'update': {
+        if (content.description !== undefined) {
+          let text = `Changed description to '${content.description}'`;
+          if (content.isActive !== undefined) {
+            text += ` and made ${content.isActive ? 'active' : 'inactive'}`;
+          }
+          return m('.status-change', text);
+        }
+
+        if (content.isActive !== undefined) {
+          return m('.status-change', content.isActive ? 'Made active' : 'Made inactive');
+        }
+
+        // TODO: shouldn't be there
+        return null;
+      }
     }
-    // TODO: render other kinds of updates too
-    return null;
   }
 
   view(vnode: m.Vnode<ProjectState>): m.Child {

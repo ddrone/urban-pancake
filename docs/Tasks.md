@@ -15,9 +15,14 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
   * [x] Implement validator for arrays
   * [x] Migrate Project to use data model instead of an interface
   * [x] Actually persist the data in local storage and check it on loading
-* [ ] Improve the look of the interface
+* [x] Improve the look of the interface
 * [x] Make the TextInput component emit the change on pressing Enter key as well
+* [ ] Write the code to display timestamps in a relative way
+* [ ] Display the timestamps on every piece of data (projects, updates)
+* [ ] Make sure that the project update timestamp is moved forward with every change added
+* [ ] Sort the projects by a timestamp on loading the state
 * [ ] Implement a separate chronological view of all updates on different projects
 * [ ] Implement a way to save/load data to server, manually via buttons at first
 * [ ] Figure out a proper way to test the server
+* [ ] Figure out a good way to show runtime assertions in the UI, they should probably be exposed as visible popups during the development
 * [ ] Rationalize automatically generated name for the project somehow

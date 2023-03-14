@@ -22,3 +22,14 @@
 .card h1 {
   border-bottom: 1px solid grey;
 }
+
+.comment {
+  padding: .5rem;
+  margin: .5rem 0;
+  background-color: white;
+  border-radius: .5rem;
+}
+
+.status-change {
+  font-size: .8rem;
+}
