@@ -21,6 +21,11 @@ export class TextInput implements m.ClassComponent<TextInputAttrs> {
       m('input', {
         oncreate: (element) => {
           this.textInput = element.dom as HTMLInputElement;
+        },
+        onkeyup: (event: KeyboardEvent) => {
+          if (event.key === "Enter") {
+            this.sendEntry(vnode.attrs);
+          }
         }
       }),
       m('button', {

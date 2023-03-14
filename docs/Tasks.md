@@ -12,7 +12,7 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 * [x] Implement a simple interface to create new projects and post updates
   * [x] Add a way to work on several projects simultaneously
 * [ ] Improve the look of the interface
-* [ ] Make the TextInput component emit the change on pressing Enter key as well
+* [x] Make the TextInput component emit the change on pressing Enter key as well
 * [ ] Implement a separate chronological view of all updates on different projects
 * [ ] Implement a way to persist the data using local storage first
 * [ ] Implement a way to save/load data to server, manually via buttons at first
