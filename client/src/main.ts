@@ -1,16 +1,11 @@
 import './style.css'
 import m from 'mithril';
 import { ProjectEditor, ProjectState } from './components/project_editor';
+import { createProject } from './models/project';
 
 class Main implements m.ClassComponent {
   state: ProjectState = {
-    // TODO: create a function to initialize consistent project
-    project: {
-      description: 'Test project',
-      isActive: true,
-      lastUpdated: Date.now(),
-      updates: []
-    }
+    project: createProject('Test project')
   }
 
   view(): m.Child {

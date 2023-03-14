@@ -29,3 +29,21 @@ export type Update = {
   content: Validated<typeof updateValidator>;
   timestamp: number;
 }
+
+export function createProject(description: string): Project {
+  const timestamp = Date.now();
+
+  return {
+    description,
+    isActive: true,
+    lastUpdated: timestamp,
+    updates: [{
+      timestamp,
+      content: {
+        kind: 'created',
+        description,
+        isActive: true
+      }
+    }]
+  }
+}
