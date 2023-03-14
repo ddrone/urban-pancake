@@ -1,6 +1,6 @@
 import { array, bool, num, optional, record, str, union, Validated } from "../generic/validation";
 
-const updateModel = {
+const updateFields = {
   "created": {
     "description": str,
     "isActive": bool
@@ -16,24 +16,21 @@ const updateModel = {
   }
 };
 
-const projectModel = record({
+const updateModel = record({
+  timestamp: num,
+  content: union(updateFields)
+});
+
+export const projectModel = record({
   description: str,
   isActive: bool,
   lastUpdated: num,
-  updates: array(record({
-    timestamp: num,
-    content: union(updateModel)
-  }))
+  updates: array(updateModel)
 });
 
+export type Update = Validated<typeof updateModel>;
+
 export type Project = Validated<typeof projectModel>;
-
-const updateValidator = union(updateModel);
-
-export type Update = {
-  content: Validated<typeof updateValidator>;
-  timestamp: number;
-}
 
 export function createProject(description: string): Project {
   const timestamp = Date.now();
