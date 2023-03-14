@@ -11,10 +11,12 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 * [x] Do the generic validation because I can't stop thinking about it anyway
 * [x] Implement a simple interface to create new projects and post updates
   * [x] Add a way to work on several projects simultaneously
+* [ ] Implement a way to persist the data using local storage first
+  * [ ] Implement validator for arrays
+  * [ ] Migrate Project to use data model instead of an interface
 * [ ] Improve the look of the interface
 * [x] Make the TextInput component emit the change on pressing Enter key as well
 * [ ] Implement a separate chronological view of all updates on different projects
-* [ ] Implement a way to persist the data using local storage first
 * [ ] Implement a way to save/load data to server, manually via buttons at first
 * [ ] Figure out a proper way to test the server
 * [ ] Rationalize automatically generated name for the project somehow
