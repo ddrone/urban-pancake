@@ -61,6 +61,24 @@ export function record<T extends Record<string, Validator<any>>>(inner: T): Vali
   }
 }
 
+export function array<T>(inner: Validator<T>): Validator<T[]> {
+  return {
+    validate(input: any): input is T[] {
+      if (!Array.isArray(input)) {
+        return false;
+      }
+
+      for (const v of input) {
+        if (!inner.validate(v)) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+  }
+}
+
 export function union<T extends Record<string, Record<string, Validator<any>>>>(inner: T): Validator<Union<Kinds<ValidatedKinds<T>>>> {
   return {
     validate(input: any): input is Union<Kinds<ValidatedKinds<T>>> {

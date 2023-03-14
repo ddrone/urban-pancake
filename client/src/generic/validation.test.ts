@@ -1,5 +1,5 @@
 import { test, describe, expect} from 'vitest';
-import { num, record, str, union, Validated } from './validation';
+import { array, num, record, str, union, Validated } from './validation';
 
 describe("str", () => {
   test("accepts strings", () => {
@@ -89,5 +89,18 @@ describe("record", () => {
   test('rejects primitive values', () => {
     expect(pointModel.validate(true)).toBeFalsy();
     expect(pointModel.validate(200)).toBeFalsy();
+  });
+});
+
+describe("array", () => {
+  const numbers = array(num);
+
+  test('accepts valid arrays, including empty one', () => {
+    expect(numbers.validate([1, 2])).toBeTruthy();
+    expect(numbers.validate([])).toBeTruthy();
+  });
+
+  test('rejects array with an invalid value', () => {
+    expect(numbers.validate(["a string", 2])).toBeFalsy();
   });
 });
