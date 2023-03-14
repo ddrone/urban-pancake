@@ -9,8 +9,10 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 * [x] Set up a directory for client
 * [x] Write a data model for projects and events associated with it: just status updates for now, no task tree
 * [x] Do the generic validation because I can't stop thinking about it anyway
-* [ ] Implement a simple interface to create new projects and post updates
-  * [ ] Add a way to work on several projects simultaneously
+* [x] Implement a simple interface to create new projects and post updates
+  * [x] Add a way to work on several projects simultaneously
+* [ ] Improve the look of the interface
+* [ ] Make the TextInput component emit the change on pressing Enter key as well
 * [ ] Implement a separate chronological view of all updates on different projects
 * [ ] Implement a way to persist the data using local storage first
 * [ ] Implement a way to save/load data to server, manually via buttons at first
