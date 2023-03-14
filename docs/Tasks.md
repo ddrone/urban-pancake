@@ -7,5 +7,6 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
   * [x] Read tutorial for Ktor framework first and do some example projects
   * [x] Implement a simple server in Ktor, being able to save and load arbitrary JSON data to file system
 * [x] Set up a directory for client
+* [ ] Write a data model for projects and events associated with it: just status updates for now, no task tree
 * [ ] Figure out a proper way to test the server
 * [ ] Rationalize automatically generated name for the project somehow
