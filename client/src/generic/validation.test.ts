@@ -1,5 +1,5 @@
-import { test, describe, assert, expect} from 'vitest';
-import { str, union, Validated } from './validation';
+import { test, describe, expect} from 'vitest';
+import { num, record, str, union, Validated } from './validation';
 
 describe("str", () => {
   test("accepts strings", () => {
@@ -58,5 +58,36 @@ describe("union", () => {
   test('rejects primitive values', () => {
     expect(nameModel.validate(true)).toBeFalsy();
     expect(nameModel.validate('Andrew')).toBeFalsy();
+  });
+});
+
+describe("record", () => {
+  const pointModel = record({
+    "x": num,
+    "y": num
+  });
+
+  type Point = Validated<typeof pointModel>;
+
+  const point: Point = {
+    x: 100,
+    y: 200
+  };
+
+  test('accepts typed value', () => {
+    expect(pointModel.validate(point)).toBeTruthy();
+  });
+
+  test('rejects value with missing field', () => {
+    expect(pointModel.validate({x: 100})).toBeFalsy();
+  });
+
+  test('accepts values with extra fields', () => {
+    expect(pointModel.validate({x: 100, y: 200, z: 300})).toBeTruthy();
+  });
+
+  test('rejects primitive values', () => {
+    expect(pointModel.validate(true)).toBeFalsy();
+    expect(pointModel.validate(200)).toBeFalsy();
   });
 });

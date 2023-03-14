@@ -43,6 +43,24 @@ type ValidatedKinds<R> = {
   [k in keyof R]: ValidatedFields<R[k]>
 };
 
+export function record<T extends Record<string, Validator<any>>>(inner: T): Validator<ValidatedFields<T>> {
+  return {
+    validate(input: any): input is ValidatedFields<T> {
+      if (input === null || typeof input !== "object") {
+        return false;
+      }
+
+      for (const [key, value] of Object.entries(inner)) {
+        if (!value.validate(input[key])) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+  }
+}
+
 export function union<T extends Record<string, Record<string, Validator<any>>>>(inner: T): Validator<Union<Kinds<ValidatedKinds<T>>>> {
   return {
     validate(input: any): input is Union<Kinds<ValidatedKinds<T>>> {
