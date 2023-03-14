@@ -44,5 +44,29 @@ type ValidatedKinds<R> = {
 };
 
 export function union<T extends Record<string, Record<string, Validator<any>>>>(inner: T): Validator<Union<Kinds<ValidatedKinds<T>>>> {
-  throw new Error("not implemented yet");
+  return {
+    validate(input: any): input is Union<Kinds<ValidatedKinds<T>>> {
+      if (input === null || typeof input !== "object") {
+        return false;
+      }
+
+      const kind = input["kind"];
+      if (typeof kind !== "string") {
+        return false;
+      }
+
+      const validator = inner[kind];
+      if (validator === undefined) {
+        return false;
+      }
+
+      for (const [key, value] of Object.entries(validator)) {
+        if (!value.validate(input[key])) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+  }
 }
