@@ -19,7 +19,7 @@ const updateModel = {
   },
 
   "comment": {
-    "contents": str
+    "comment": str
   }
 };
 
