@@ -12,8 +12,9 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 * [x] Implement a simple interface to create new projects and post updates
   * [x] Add a way to work on several projects simultaneously
 * [ ] Implement a way to persist the data using local storage first
-  * [ ] Implement validator for arrays
-  * [ ] Migrate Project to use data model instead of an interface
+  * [x] Implement validator for arrays
+  * [x] Migrate Project to use data model instead of an interface
+  * [ ] Actually persist the data in local storage and check it on loading
 * [ ] Improve the look of the interface
 * [x] Make the TextInput component emit the change on pressing Enter key as well
 * [ ] Implement a separate chronological view of all updates on different projects

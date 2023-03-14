@@ -1,11 +1,4 @@
-import { bool, optional, str, union, Validated } from "../generic/validation";
-
-export interface Project {
-  description: string;
-  isActive: boolean;
-  lastUpdated: number;
-  updates: Update[];
-}
+import { array, bool, num, optional, record, str, union, Validated } from "../generic/validation";
 
 const updateModel = {
   "created": {
@@ -22,6 +15,18 @@ const updateModel = {
     "comment": str
   }
 };
+
+const projectModel = record({
+  description: str,
+  isActive: bool,
+  lastUpdated: num,
+  updates: array(record({
+    timestamp: num,
+    content: union(updateModel)
+  }))
+});
+
+export type Project = Validated<typeof projectModel>;
 
 const updateValidator = union(updateModel);
 

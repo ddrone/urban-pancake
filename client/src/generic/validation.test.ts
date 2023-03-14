@@ -90,6 +90,22 @@ describe("record", () => {
     expect(pointModel.validate(true)).toBeFalsy();
     expect(pointModel.validate(200)).toBeFalsy();
   });
+
+  const nestedModel = record({
+    'flat': pointModel,
+    z: num
+  });
+
+  type NestedRecord = Validated<typeof nestedModel>;
+
+  const nested: NestedRecord = {
+    flat: point,
+    z: 300
+  };
+
+  test('nested record accepts typed value', () => {
+    expect(nestedModel.validate(nested)).toBeTruthy();
+  });
 });
 
 describe("array", () => {
