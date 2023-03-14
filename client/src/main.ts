@@ -9,7 +9,7 @@ class Main implements m.ClassComponent {
 
   view(): m.Child {
     return m('div',
-      m('h1', 'Project template'),
+      m('h1', 'My projects'),
       this.state.map(project => m(ProjectEditor, project)),
       m(TextInput, {
         buttonText: 'Add project',
