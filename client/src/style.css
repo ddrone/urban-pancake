@@ -6,10 +6,15 @@
 }
 
 #app {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
   min-height: 100vh;
-  border-right: 1px solid grey;
-  max-width: 800px;
+  width: 800px;
   padding: 1rem;
+  border-right: 1px solid grey;
 }
 
 .card {
