@@ -23,7 +23,7 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
   * [x] Add widget gallery to the routes in order to be able to work on widgets independently of the features
   * [x] Implement checkbox component for widget gallery
   * [x] Implement a timeout button
-  * [ ] Write down the data model for reminders
+  * [x] Write down the data model for reminders
   * [ ] Add a way to write down another daily reminder
   * [ ] Implement the modal that will trigger when there is a reminder to show
 * [ ] Implement a way to save/load data to server, manually via buttons at first
