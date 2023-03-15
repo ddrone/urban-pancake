@@ -105,22 +105,30 @@ class Main implements m.ClassComponent {
           }
         }, 'Save state')
       ),
-      this.flatComments.size > 0 && m('.column',
-        m('h1', 'Last updates'),
-        Array.from(this.flatComments.entries()).map(([group, comments]) =>
-          m('div',
-            m('h2', levelNames[group]),
-            m('ul',
-              comments.map(fc => m('li',
-                fc.comment,
-                ' [',
-                fc.timestamp.readable,
-                ', ',
-                m('i', this.projects[fc.projectIndex].project.description),
-                ']',
-              ))
-            )
-          ))
+      m('.column',
+        this.flatComments.size > 0 && [
+          m('h1', 'Last updates'),
+          Array.from(this.flatComments.entries()).map(([group, comments]) =>
+            m('div',
+              m('h2', levelNames[group]),
+              m('ul',
+                comments.map(fc => m('li',
+                  fc.comment,
+                  ' [',
+                  fc.timestamp.readable,
+                  ', ',
+                  m('i', this.projects[fc.projectIndex].project.description),
+                  ']',
+                ))
+              )
+            ))
+        ],
+        this.reminders.length > 0 && m('.card',
+          m('h1', 'All reminders'),
+          m('ul',
+            this.reminders.map(reminder => m('li', reminder.text, ' ', m('span.small', reminder.timesShown === 1 ? 'shown once' : `${reminder.timesShown} times shown`)))
+          )
+        )
       )
     ]
   }
