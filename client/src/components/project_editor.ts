@@ -46,7 +46,6 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
         m('h1', project.description),
       ),
       project.updates.length > 1 && m('.updates',
-        m('h2', 'Last updates'),
         m('div', project.updates.slice(-3).reverse().map(update => this.renderUpdate(update)))
       ),
       m(TextInput, {
