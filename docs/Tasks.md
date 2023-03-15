@@ -27,7 +27,7 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
   * [x] Add a way to write down another daily reminder
   * [ ] Add the reminders to persistent store as well
   * [ ] Add the last reminder shown to the model
-  * [ ] Implement the code that will pick a fresh reminder if it was absent or is just too old
+  * [x] Implement the code that will pick a fresh reminder if it was absent or is just too old
 * [ ] Implement a way to save/load data to server, manually via buttons at first
 * [ ] Write the code to display timestamps in a relative way
 * [ ] Display the timestamps on every piece of data (projects, updates)
