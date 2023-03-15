@@ -1,18 +1,18 @@
 import { array, bool, num, optional, record, str, union, Validated } from "../generic/validation";
 
 const updateFields = {
-  "created": {
-    "description": str,
-    "isActive": bool
+  created: {
+    description: str,
+    isActive: bool
   },
 
-  "update": {
-    "description": optional(str),
-    "isActive": optional(bool)
+  update: {
+    description: optional(str),
+    isActive: optional(bool)
   },
 
-  "comment": {
-    "comment": str
+  comment: {
+    comment: str
   }
 };
 
