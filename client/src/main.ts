@@ -24,11 +24,18 @@ class Main implements m.ClassComponent {
       }
       this.reminders = state.reminders;
       this.currentReminder = currentReminder(this.reminders, state.lastReminder);
+      console.log(this.currentReminder);
     }
   }
 
   view(): m.Child {
     return m('div',
+      this.currentReminder !== undefined && [
+        m('h1', 'Daily reminder'),
+        m('.card',
+          this.reminders[this.currentReminder.index].text
+        )
+      ],
       m('h1', 'My projects'),
       this.projects.map(project => m(ProjectEditor, project)),
       m(TextInput, {
@@ -57,7 +64,7 @@ class Main implements m.ClassComponent {
         onclick: () => {
           const state: AppState = {
             projects: [],
-            reminders: [],
+            reminders: this.reminders,
             lastReminder: this.currentReminder
           }
 
