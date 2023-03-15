@@ -28,12 +28,12 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
   * [x] Add the reminders to persistent store as well
   * [x] Add the last reminder shown to the model
   * [x] Implement the code that will pick a fresh reminder if it was absent or is just too old
-* [ ] Implement a way to save/load data to server, manually via buttons at first
 * [ ] Write the code to display timestamps in a relative way
 * [ ] Display the timestamps on every piece of data (projects, updates)
 * [ ] Make sure that the project update timestamp is moved forward with every change added
 * [ ] Sort the projects by a timestamp on loading the state
 * [ ] Implement a separate chronological view of all updates on different projects
+* [ ] Implement a way to save/load data to server, manually via buttons at first
 * [ ] Figure out a proper way to test the server
 * [ ] Figure out a good way to show runtime assertions in the UI, they should probably be exposed as visible popups during the development
 * [ ] Rationalize automatically generated name for the project somehow
