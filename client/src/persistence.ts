@@ -1,8 +1,10 @@
 import { array, record, Validated } from "./generic/validation";
 import { projectModel } from "./models/project";
+import { reminder } from "./models/reminder";
 
 const appState = record({
-  projects: array(projectModel)
+  projects: array(projectModel),
+  reminders: array(reminder),
 });
 
 export type AppState = Validated<typeof appState>;

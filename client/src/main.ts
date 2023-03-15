@@ -36,7 +36,8 @@ class Main implements m.ClassComponent {
       m(Button, {
         onclick: () => {
           const state: AppState = {
-            projects: []
+            projects: [],
+            reminders: [],
           }
 
           for (const p of this.state) {
