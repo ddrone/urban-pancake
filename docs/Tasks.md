@@ -28,7 +28,7 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
   * [x] Add the reminders to persistent store as well
   * [x] Add the last reminder shown to the model
   * [x] Implement the code that will pick a fresh reminder if it was absent or is just too old
-* [ ] Write the code to display timestamps in a relative way
+* [x] Write the code to display timestamps in a relative way
 * [ ] Display the timestamps on every piece of data (projects, updates)
 * [ ] Make sure that the project update timestamp is moved forward with every change added
 * [ ] Sort the projects by a timestamp on loading the state
