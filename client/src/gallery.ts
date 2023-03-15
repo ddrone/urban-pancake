@@ -2,6 +2,7 @@ import m from 'mithril';
 import { Button } from './components/button';
 import { Checkbox } from './components/checkbox';
 import { TextInput } from './components/text_input';
+import { TimeoutButton } from './components/timeout_button';
 import { Box } from './utils/box';
 
 export class Widgets implements m.ClassComponent {
@@ -13,6 +14,8 @@ export class Widgets implements m.ClassComponent {
       m(CheckboxShowcase),
       m('h2', 'Button'),
       m(ButtonShowcase),
+      m('h2', 'TimeoutButton'),
+      m(TimeoutButtonShowcase),
     )
   }
 }
@@ -61,5 +64,17 @@ class ButtonShowcase implements m.ClassComponent {
         }
       }, 'Button')
     )
+  }
+}
+
+class TimeoutButtonShowcase implements m.ClassComponent {
+  view(): m.Child {
+    return m('div',
+      m(TimeoutButton, {
+        onclick() {
+          alert('Button clicked!');
+        }
+      }, 'Button')
+    );
   }
 }
