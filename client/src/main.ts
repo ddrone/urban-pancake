@@ -8,13 +8,13 @@ import { Button } from './components/button';
 import { Widgets } from './gallery';
 
 class Main implements m.ClassComponent {
-  state: ProjectState[] = [];
+  projects: ProjectState[] = [];
 
   constructor() {
     const state = loadState();
     if (state !== undefined) {
       for (const project of state.projects) {
-        this.state.push({
+        this.projects.push({
           project
         })
       }
@@ -24,11 +24,11 @@ class Main implements m.ClassComponent {
   view(): m.Child {
     return m('div',
       m('h1', 'My projects'),
-      this.state.map(project => m(ProjectEditor, project)),
+      this.projects.map(project => m(ProjectEditor, project)),
       m(TextInput, {
         buttonText: 'Add project',
         onEntry: (value) => {
-          this.state.push({
+          this.projects.push({
             project: createProject(value)
           });
         },
@@ -40,7 +40,7 @@ class Main implements m.ClassComponent {
             reminders: [],
           }
 
-          for (const p of this.state) {
+          for (const p of this.projects) {
             state.projects.push(p.project);
           }
 
