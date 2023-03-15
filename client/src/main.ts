@@ -9,7 +9,7 @@ import { Widgets } from './gallery';
 
 class Main implements m.ClassComponent {
   projects: ProjectState[] = [];
-  reminders: string[] = [];
+  newReminders: string[] = [];
 
   constructor() {
     const state = loadState();
@@ -34,14 +34,14 @@ class Main implements m.ClassComponent {
           });
         },
       }),
-      this.reminders.length > 0 && [
+      this.newReminders.length > 0 && [
         m('h1', 'New reminders'),
-        this.reminders.map(reminder => m('.card', reminder)),
+        this.newReminders.map(reminder => m('.card', reminder)),
       ],
       m(TextInput, {
         buttonText: 'Add reminder',
         onEntry: (value) => {
-          this.reminders.push(value);
+          this.newReminders.push(value);
         }
       }),
       m(Button, {
