@@ -49,4 +49,6 @@ class Main implements m.ClassComponent {
   }
 }
 
-m.mount(document.querySelector('#app')!, Main);
+m.route(document.querySelector('#app')!, "/main", {
+  "/main": Main,
+});
