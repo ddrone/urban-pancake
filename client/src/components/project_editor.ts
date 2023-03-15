@@ -41,7 +41,10 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
   view(vnode: m.Vnode<ProjectState>): m.Child {
     const project = vnode.attrs.project;
     return m('.card',
-      m('h1', project.description),
+      m('.card-header',
+        m('.header-update', this.renderTimestamp(project.lastUpdated)),
+        m('h1', project.description),
+      ),
       project.updates.length > 1 && m('.updates',
         m('h2', 'Last updates'),
         m('div', project.updates.slice(-3).reverse().map(update => this.renderUpdate(update)))
@@ -49,8 +52,10 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
       m(TextInput, {
         buttonText: 'Add comment',
         onEntry(value) {
+          const ts = Date.now();
+          project.lastUpdated = ts;
           project.updates.push({
-            timestamp: Date.now(),
+            timestamp: ts,
             content: {
               kind: 'comment',
               comment: value

@@ -33,3 +33,7 @@
 .small {
   font-size: .8rem;
 }
+
+.header-update {
+  float: right;
+}
