@@ -1,5 +1,6 @@
 import m from 'mithril';
 import { Project, Update } from '../models/project';
+import { relativeToNow } from '../utils/timestamp';
 import { TextInput } from './text_input';
 
 export interface ProjectState {
@@ -7,11 +8,15 @@ export interface ProjectState {
 }
 
 export class ProjectEditor implements m.ClassComponent<ProjectState> {
+  renderTimestamp(ts: number): m.Child {
+    return m('span.small', relativeToNow(ts).readable);
+  }
+
   renderUpdate(update: Update): m.Child {
     const content = update.content;
     switch (content.kind) {
       case 'comment':
-        return m('.comment', content.comment);
+        return m('.comment', content.comment, ' ', this.renderTimestamp(update.timestamp));
       case 'created':
         return m('.small', 'Project created');
       case 'update': {
