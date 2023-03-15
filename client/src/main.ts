@@ -7,6 +7,7 @@ import { AppState, loadState, saveState } from './persistence';
 import { Button } from './components/button';
 import { Widgets } from './gallery';
 import { currentReminder, Reminder, ShownReminder } from './models/reminder';
+import { comparing } from './utils/sorting';
 
 class Main implements m.ClassComponent {
   projects: ProjectState[] = [];
@@ -17,6 +18,7 @@ class Main implements m.ClassComponent {
   constructor() {
     const state = loadState();
     if (state !== undefined) {
+      state.projects.sort(comparing(p => p.lastUpdated));
       for (const project of state.projects) {
         this.projects.push({
           project
