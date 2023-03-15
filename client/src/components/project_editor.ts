@@ -18,7 +18,7 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
       case 'comment':
         return m('.comment', content.comment, ' ', this.renderTimestamp(update.timestamp));
       case 'created':
-        return m('.small', 'Project created');
+        return m('.small', 'Project created ', this.renderTimestamp(update.timestamp));
       case 'update': {
         if (content.description !== undefined) {
           let text = `Changed description to '${content.description}'`;
