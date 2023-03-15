@@ -1,4 +1,4 @@
-import { array, num, optional, record, Validated } from "./generic/validation";
+import { array, optional, record, Validated } from "./generic/validation";
 import { projectModel } from "./models/project";
 import { shownReminder, reminder } from "./models/reminder";
 
