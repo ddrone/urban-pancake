@@ -49,6 +49,7 @@ class Main implements m.ClassComponent {
           const state: AppState = {
             projects: [],
             reminders: [],
+            lastReminder: undefined
           }
 
           for (const p of this.projects) {
