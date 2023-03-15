@@ -68,12 +68,20 @@ class ButtonShowcase implements m.ClassComponent {
 }
 
 class TimeoutButtonShowcase implements m.ClassComponent {
+  restart = new Box(false);
+
   view(): m.Child {
     return m('div',
+      m(Button, {
+        onclick: () => {
+          this.restart.value = true;
+        }
+      }, 'Restart'),
       m(TimeoutButton, {
         onclick() {
           alert('Button clicked!');
-        }
+        },
+        restart: this.restart,
       }, 'Button')
     );
   }
