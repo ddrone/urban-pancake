@@ -10,6 +10,11 @@
   flex-direction: row;
 }
 
+h1 {
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
 .column {
   min-height: 100vh;
   width: 800px;
