@@ -5,6 +5,7 @@ import { TextInput } from './components/text_input';
 import { createProject } from './models/project';
 import { AppState, loadState, saveState } from './persistence';
 import { Button } from './components/button';
+import { Widgets } from './gallery';
 
 class Main implements m.ClassComponent {
   state: ProjectState[] = [];
@@ -51,4 +52,5 @@ class Main implements m.ClassComponent {
 
 m.route(document.querySelector('#app')!, "/main", {
   "/main": Main,
+  "/widgets": Widgets,
 });

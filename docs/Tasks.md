@@ -20,7 +20,7 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 * [ ] Implement a feature for daily cards
   * [x] Write a short description of the feature
   * [x] Add router to the application
-  * [ ] Add widget gallery to the routes in order to be able to work on widgets independently of the features
+  * [x] Add widget gallery to the routes in order to be able to work on widgets independently of the features
   * [ ] Implement a timeout button
 * [ ] Implement a way to save/load data to server, manually via buttons at first
 * [ ] Write the code to display timestamps in a relative way
