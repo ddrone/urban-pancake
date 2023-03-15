@@ -9,6 +9,7 @@ import { Widgets } from './gallery';
 
 class Main implements m.ClassComponent {
   projects: ProjectState[] = [];
+  reminders: string[] = [];
 
   constructor() {
     const state = loadState();
@@ -32,6 +33,16 @@ class Main implements m.ClassComponent {
             project: createProject(value)
           });
         },
+      }),
+      this.reminders.length > 0 && [
+        m('h1', 'New reminders'),
+        this.reminders.map(reminder => m('.card', reminder)),
+      ],
+      m(TextInput, {
+        buttonText: 'Add reminder',
+        onEntry: (value) => {
+          this.reminders.push(value);
+        }
       }),
       m(Button, {
         onclick: () => {
