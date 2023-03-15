@@ -123,12 +123,6 @@ class Main implements m.ClassComponent {
               )
             ))
         ],
-        this.reminders.length > 0 && m('.card',
-          m('h1', 'All reminders'),
-          m('ul',
-            this.reminders.map(reminder => m('li', reminder.text, ' ', m('span.small', reminder.timesShown === 1 ? 'shown once' : `${reminder.timesShown} times shown`)))
-          )
-        )
       )
     ]
   }
