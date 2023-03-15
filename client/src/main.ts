@@ -6,9 +6,12 @@ import { createProject } from './models/project';
 import { AppState, loadState, saveState } from './persistence';
 import { Button } from './components/button';
 import { Widgets } from './gallery';
+import { currentReminder, Reminder, ShownReminder } from './models/reminder';
 
 class Main implements m.ClassComponent {
   projects: ProjectState[] = [];
+  reminders: Reminder[] = [];
+  currentReminder?: ShownReminder;
   newReminders: string[] = [];
 
   constructor() {
@@ -19,6 +22,8 @@ class Main implements m.ClassComponent {
           project
         })
       }
+      this.reminders = state.reminders;
+      this.currentReminder = currentReminder(this.reminders, state.lastReminder);
     }
   }
 
@@ -42,6 +47,10 @@ class Main implements m.ClassComponent {
         buttonText: 'Add reminder',
         onEntry: (value) => {
           this.newReminders.push(value);
+          this.reminders.push({
+            text: value,
+            timesShown: 0
+          });
         }
       }),
       m(Button, {
@@ -49,7 +58,7 @@ class Main implements m.ClassComponent {
           const state: AppState = {
             projects: [],
             reminders: [],
-            lastReminder: undefined
+            lastReminder: this.currentReminder
           }
 
           for (const p of this.projects) {
