@@ -50,6 +50,10 @@ h2 {
   font-size: .8rem;
 }
 
+.big {
+  font-size: 1.3rem;
+}
+
 .header-update {
   float: right;
 }

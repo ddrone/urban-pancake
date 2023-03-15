@@ -61,7 +61,7 @@ class Main implements m.ClassComponent {
       m('.column',
         this.currentReminder !== undefined && [
           m('h1', 'Daily reminder'),
-          m('.card',
+          m('.card.big',
             this.reminders[this.currentReminder.index].text
           )
         ],
