@@ -1,11 +1,15 @@
 import m from 'mithril';
+import { Checkbox } from './components/checkbox';
 import { TextInput } from './components/text_input';
+import { Box } from './utils/box';
 
 export class Widgets implements m.ClassComponent {
   view(): m.Child {
     return m('div',
       m('h2', 'TextInput'),
       m(TextInputShowcase),
+      m('h2', 'Checkbox'),
+      m(CheckboxShowcase),
     )
   }
 }
@@ -26,5 +30,15 @@ class TextInputShowcase implements m.ClassComponent {
         this.lastEntry
       )
     );
+  }
+}
+
+class CheckboxShowcase implements m.ClassComponent {
+  checked = new Box(false);
+
+  view(): m.Child {
+    return m(Checkbox, {
+      checked: this.checked,
+    }, this.checked.value ? 'Checked checkbox' : 'Unchecked checkbox');
   }
 }
