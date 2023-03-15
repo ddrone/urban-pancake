@@ -8,22 +8,48 @@ import { Button } from './components/button';
 import { Widgets } from './gallery';
 import { currentReminder, Reminder, ShownReminder } from './models/reminder';
 import { comparing } from './utils/sorting';
+import { levelNames, relativeDuration, RelativeDuration } from './utils/timestamp';
+import { groupBy } from './utils/group';
+
+interface FlatComment {
+  projectIndex: number;
+  comment: string;
+  timestamp: RelativeDuration;
+  absTimestamp: number;
+}
 
 class Main implements m.ClassComponent {
   projects: ProjectState[] = [];
   reminders: Reminder[] = [];
   currentReminder?: ShownReminder;
   newReminders: string[] = [];
+  flatComments: Map<number, FlatComment[]> = new Map();
 
   constructor() {
     const state = loadState();
     if (state !== undefined) {
       state.projects.sort(comparing(p => p.lastUpdated));
-      for (const project of state.projects) {
+      const comments: FlatComment[] = [];
+      const now = Date.now();
+      for (let i = 0; i < state.projects.length; i++) {
+        const project = state.projects[i];
         this.projects.push({
           project
         })
+        for (const update of project.updates) {
+          if (update.content.kind === "comment") {
+            comments.push({
+              projectIndex: i,
+              comment: update.content.comment,
+              timestamp: relativeDuration(now - update.timestamp),
+              absTimestamp: update.timestamp
+            });
+          }
+        }
       }
+      comments.sort(comparing(fc => -fc.absTimestamp));
+      console.log(comments);
+      this.flatComments = groupBy(comments, fc => fc.timestamp.level);
       this.reminders = state.reminders;
       this.currentReminder = currentReminder(this.reminders, state.lastReminder);
       console.log(this.currentReminder);
@@ -79,8 +105,22 @@ class Main implements m.ClassComponent {
           }
         }, 'Save state')
       ),
-      m('.column',
+      this.flatComments.size > 0 && m('.column',
         m('h1', 'Last updates'),
+        Array.from(this.flatComments.entries()).map(([group, comments]) =>
+          m('div',
+            m('h2', levelNames[group]),
+            m('ul',
+              comments.map(fc => m('li',
+                fc.comment,
+                ' [',
+                fc.timestamp.readable,
+                ', ',
+                m('i', this.projects[fc.projectIndex].project.description),
+                ']',
+              ))
+            )
+          ))
       )
     ]
   }

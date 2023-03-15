@@ -33,8 +33,8 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 * [x] Make sure that the project update timestamp is moved forward with every change added
 * [x] Sort the projects by a timestamp on loading the state
 * [x] Improve look of the text input component field
-* [ ] Write down the data type of recent comment, that should have project index with it
-* [ ] Implement a separate chronological view of all updates on different projects
+* [x] Write down the data type of recent comment, that should have project index with it
+* [x] Implement a separate chronological view of all updates on different projects
 * [ ] Implement a way to save/load data to server, manually via buttons at first
 * [ ] Figure out a proper way to test the server
 * [ ] Figure out a good way to show runtime assertions in the UI, they should probably be exposed as visible popups during the development
