@@ -17,7 +17,7 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
   * [x] Actually persist the data in local storage and check it on loading
 * [x] Improve the look of the interface
 * [x] Make the TextInput component emit the change on pressing Enter key as well
-* [ ] Implement a feature for daily cards
+* [x] Implement a feature for daily cards
   * [x] Write a short description of the feature
   * [x] Add router to the application
   * [x] Add widget gallery to the routes in order to be able to work on widgets independently of the features
@@ -25,8 +25,8 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
   * [x] Implement a timeout button
   * [x] Write down the data model for reminders
   * [x] Add a way to write down another daily reminder
-  * [ ] Add the reminders to persistent store as well
-  * [ ] Add the last reminder shown to the model
+  * [x] Add the reminders to persistent store as well
+  * [x] Add the last reminder shown to the model
   * [x] Implement the code that will pick a fresh reminder if it was absent or is just too old
 * [ ] Implement a way to save/load data to server, manually via buttons at first
 * [ ] Write the code to display timestamps in a relative way
