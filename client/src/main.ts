@@ -107,7 +107,21 @@ class Main implements m.ClassComponent {
           onclick: () => {
             saveState(this.serializeState());
           }
-        }, 'Save state')
+        }, 'Save state'),
+        m(Button, {
+          onclick: () => {
+            fetch('http://localhost:8080/document', {
+              method: 'post',
+              headers: new Headers({
+                'content-type': 'application/json'
+              }),
+              body: JSON.stringify({
+                name: 'up-state',
+                content: this.serializeState(),
+              })
+            })
+          }
+        }, 'Save state to server'),
       ),
       m('.column',
         this.flatComments.size > 0 && [
