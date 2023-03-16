@@ -8,6 +8,7 @@ fun Application.configureHTTP() {
     install(CORS) {
         allowMethod(HttpMethod.Options)
         allowHeaders { true }
+        allowNonSimpleContentTypes = true
         anyHost()
     }
 }

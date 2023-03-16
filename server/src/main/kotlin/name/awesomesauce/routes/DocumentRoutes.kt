@@ -30,7 +30,6 @@ fun Route.documentRouting() {
         post {
             val request = call.receive<Document>();
             val contents = Json.encodeToString(request.content)
-
             File("${request.name}.json").writeText(contents)
         }
     }
