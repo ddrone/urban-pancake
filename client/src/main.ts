@@ -105,11 +105,8 @@ class Main implements m.ClassComponent {
         }),
         m(Button, {
           onclick: () => {
-            saveState(this.serializeState());
-          }
-        }, 'Save state'),
-        m(Button, {
-          onclick: () => {
+            const state = this.serializeState();
+            saveState(state);
             fetch('http://localhost:8080/document', {
               method: 'post',
               headers: new Headers({
@@ -117,11 +114,11 @@ class Main implements m.ClassComponent {
               }),
               body: JSON.stringify({
                 name: 'up-state',
-                content: this.serializeState(),
+                content: state,
               })
             })
           }
-        }, 'Save state to server'),
+        }, 'Save state'),
       ),
       m('.column',
         this.flatComments.size > 0 && [
