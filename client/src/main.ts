@@ -56,6 +56,20 @@ class Main implements m.ClassComponent {
     }
   }
 
+  serializeState(): AppState {
+    const state: AppState = {
+      projects: [],
+      reminders: this.reminders,
+      lastReminder: this.currentReminder
+    }
+
+    for (const p of this.projects) {
+      state.projects.push(p.project);
+    }
+
+    return state;
+  }
+
   view(): m.Children {
     return [
       m('.column',
@@ -91,17 +105,7 @@ class Main implements m.ClassComponent {
         }),
         m(Button, {
           onclick: () => {
-            const state: AppState = {
-              projects: [],
-              reminders: this.reminders,
-              lastReminder: this.currentReminder
-            }
-
-            for (const p of this.projects) {
-              state.projects.push(p.project);
-            }
-
-            saveState(state);
+            saveState(this.serializeState());
           }
         }, 'Save state')
       ),
