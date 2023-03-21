@@ -35,6 +35,7 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 * [x] Improve look of the text input component field
 * [x] Write down the data type of recent comment, that should have project index with it
 * [x] Implement a separate chronological view of all updates on different projects
+* [ ] Implement a way to mark projects as done
 * [ ] Implement a way to save/load data to server, manually via buttons at first
   * [x] Save
   * [ ] Load
