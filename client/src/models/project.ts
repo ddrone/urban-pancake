@@ -5,7 +5,6 @@ export const status = oneOf(['active', 'inactive', 'done']);
 const updateFields = {
   created: {
     description: str,
-    status: optional(status),
   },
 
   update: {
@@ -25,7 +24,7 @@ const updateModel = record({
 
 export const projectModel = record({
   description: str,
-  isActive: bool,
+  status: optional(status),
   lastUpdated: num,
   updates: array(updateModel)
 });
@@ -39,14 +38,13 @@ export function createProject(description: string): Project {
 
   return {
     description,
-    isActive: true,
     lastUpdated: timestamp,
+    status: 'active',
     updates: [{
       timestamp,
       content: {
         kind: 'created',
         description,
-        status: 'active',
       }
     }]
   }
