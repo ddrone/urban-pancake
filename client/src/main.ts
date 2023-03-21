@@ -33,6 +33,9 @@ class Main implements m.ClassComponent {
       const now = Date.now();
       for (let i = 0; i < state.projects.length; i++) {
         const project = state.projects[i];
+        if (project.status === undefined) {
+          project.status = 'active';
+        }
         this.projects.push({
           project
         })

@@ -1,4 +1,4 @@
-import { array, bool, num, oneOf, optional, record, str, union, Validated } from "../generic/validation";
+import { array, num, oneOf, optional, record, str, union, Validated } from "../generic/validation";
 
 export const status = oneOf(['active', 'inactive', 'done']);
 
@@ -24,7 +24,7 @@ const updateModel = record({
 
 export const projectModel = record({
   description: str,
-  status: optional(status),
+  status,
   lastUpdated: num,
   updates: array(updateModel)
 });
