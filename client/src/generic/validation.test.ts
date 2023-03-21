@@ -1,5 +1,5 @@
 import { test, describe, expect} from 'vitest';
-import { array, num, record, str, union, Validated } from './validation';
+import { array, num, oneOf, record, str, union, Validated } from './validation';
 
 describe("str", () => {
   test("accepts strings", () => {
@@ -118,5 +118,26 @@ describe("array", () => {
 
   test('rejects array with an invalid value', () => {
     expect(numbers.validate(["a string", 2])).toBeFalsy();
+  });
+});
+
+describe("oneOf", () => {
+  const status = oneOf(['active', 'inactive', 'done']);
+
+  test('accepts valid values', () => {
+    expect(status.validate('active')).toBeTruthy();
+    expect(status.validate('inactive')).toBeTruthy();
+    expect(status.validate('done')).toBeTruthy();
+  });
+
+  test('rejects invalid values', () => {
+    expect(status.validate('activ')).toBeFalsy();
+    expect(status.validate('something else')).toBeFalsy();
+    expect(status.validate(3)).toBeFalsy();
+  });
+
+  test('rejects compound values', () => {
+    expect(status.validate(['active', 'inactive'])).toBeFalsy();
+    expect(status.validate({active: 10, inactive: 20})).toBeFalsy();
   });
 });

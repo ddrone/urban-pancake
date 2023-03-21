@@ -37,7 +37,7 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 * [x] Implement a separate chronological view of all updates on different projects
 * [ ] Implement a way to mark projects as done
   * [x] Implement a way to validate enums
-  * [ ] Write unit tests for enum validation
+  * [x] Write unit tests for enum validation
   * [ ] Add a new status field for the project
   * [ ] Implement "recently done" section with different (green) background
 * [ ] Implement a way to save/load data to server, manually via buttons at first
