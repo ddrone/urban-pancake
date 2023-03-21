@@ -22,14 +22,14 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
       case 'update': {
         if (content.description !== undefined) {
           let text = `Changed description to '${content.description}'`;
-          if (content.isActive !== undefined) {
-            text += ` and made ${content.isActive ? 'active' : 'inactive'}`;
+          if (content.status !== undefined) {
+            text += ` and status to ${content.status}`;
           }
           return m('.small', text);
         }
 
-        if (content.isActive !== undefined) {
-          return m('.small', content.isActive ? 'Made active' : 'Made inactive');
+        if (content.status !== undefined) {
+          return m('.small', `Changed status to ${content.status}`);
         }
 
         // TODO: shouldn't be there
@@ -40,7 +40,7 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
 
   view(vnode: m.Vnode<ProjectState>): m.Child {
     const project = vnode.attrs.project;
-    return m('.card',
+    return m('.card.active',
       m('.card-header',
         m('.header-update', this.renderTimestamp(project.lastUpdated)),
         m('h1', project.description),

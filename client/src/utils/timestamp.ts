@@ -26,6 +26,10 @@ export function relativeToNow(timestamp: number): RelativeDuration {
   return relativeDuration(now - timestamp);
 }
 
+export function isRecent(timestamp: number): boolean {
+  return Date.now() - timestamp < week;
+}
+
 export function relativeDuration(delta: number): RelativeDuration {
   if (delta > year) {
     return {

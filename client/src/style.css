@@ -28,8 +28,19 @@ h2 {
   border-right: 1px solid grey;
 }
 
-.card {
+.inactive {
+  background-color: #eee;
+}
+
+.active {
   background-color: #eef;
+}
+
+.done {
+  background-color: #efe;
+}
+
+.card {
   border-radius: .5rem;
   margin: 1rem 0;
   padding: 1rem;
