@@ -33,6 +33,14 @@ export function optional<T>(inner: Validator<T>): Validator<T | undefined> {
   }
 }
 
+export function oneOf<S extends number|string>(options: readonly S[]): Validator<(typeof options)[number]> {
+  return {
+    validate(input: any): input is (typeof options)[number] {
+      return (options.indexOf(input) !== -1);
+    }
+  }
+}
+
 export type Validated<V> = V extends Validator<infer T> ? T : never;
 
 type ValidatedFields<R> = {
