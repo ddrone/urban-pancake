@@ -33,6 +33,9 @@ class Main implements m.ClassComponent {
       const now = Date.now();
       for (let i = 0; i < state.projects.length; i++) {
         const project = state.projects[i];
+        // TODO: the next line is a useful fixup for the data model to ensure that the updated timestamp
+        // is actually the last one. Maybe I should do something to avoid having to do that.
+        project.lastUpdated = Math.max(project.lastUpdated, ...project.updates.map(u => u.timestamp));
         if (project.status === undefined) {
           project.status = 'active';
         }

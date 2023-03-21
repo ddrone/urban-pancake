@@ -1,6 +1,7 @@
 import m from 'mithril';
 import { Project, Update } from '../models/project';
 import { relativeToNow } from '../utils/timestamp';
+import { Button } from './button';
 import { TextInput } from './text_input';
 
 export interface ProjectState {
@@ -40,7 +41,7 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
 
   view(vnode: m.Vnode<ProjectState>): m.Child {
     const project = vnode.attrs.project;
-    return m('.card.active',
+    return m(`.card.${project.status}`,
       m('.card-header',
         m('.header-update', this.renderTimestamp(project.lastUpdated)),
         m('h1', project.description),
@@ -61,7 +62,23 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
             }
           })
         },
-      })
+      }),
+      project.status !== 'done' &&
+      m(Button, {
+        onclick() {
+          const ts = Date.now();
+          project.lastUpdated = ts;
+          project.status = 'done',
+          project.updates.push({
+            timestamp: Date.now(),
+            content: {
+              kind: 'update',
+              status: 'done',
+              description: undefined,
+            }
+          })
+        },
+      }, 'Mark as done')
     );
   }
 }
