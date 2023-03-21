@@ -38,7 +38,9 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 * [ ] Implement a way to mark projects as done
   * [x] Implement a way to validate enums
   * [x] Write unit tests for enum validation
-  * [ ] Add a new status field for the project
+  * [x] Add a new status field for the project
+  * [ ] Set 'active' status to all the projects and then make it required
+  * [ ] Add a way to change status
   * [ ] Implement "recently done" section with different (green) background
 * [ ] Implement a way to save/load data to server, manually via buttons at first
   * [x] Save

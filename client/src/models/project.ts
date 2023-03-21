@@ -1,14 +1,16 @@
-import { array, bool, num, optional, record, str, union, Validated } from "../generic/validation";
+import { array, bool, num, oneOf, optional, record, str, union, Validated } from "../generic/validation";
+
+export const status = oneOf(['active', 'inactive', 'done']);
 
 const updateFields = {
   created: {
     description: str,
-    isActive: bool
+    status: optional(status),
   },
 
   update: {
     description: optional(str),
-    isActive: optional(bool)
+    status: optional(status),
   },
 
   comment: {
@@ -44,7 +46,7 @@ export function createProject(description: string): Project {
       content: {
         kind: 'created',
         description,
-        isActive: true
+        status: 'active',
       }
     }]
   }
