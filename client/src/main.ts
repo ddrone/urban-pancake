@@ -77,6 +77,8 @@ class Main implements m.ClassComponent {
   }
 
   view(): m.Children {
+    const activeProjects = this.projects.filter(p => p.project.status !== 'done');
+    const doneProjects = this.projects.filter(p => p.project.status === 'done');
     return [
       m('.column',
         this.currentReminder !== undefined && [
@@ -85,8 +87,14 @@ class Main implements m.ClassComponent {
             this.reminders[this.currentReminder.index].text
           )
         ],
-        m('h1', 'My projects'),
-        this.projects.map(project => m(ProjectEditor, project)),
+        activeProjects.length > 0 && [
+          m('h1', 'My projects'),
+          activeProjects.map(project => m(ProjectEditor, project)),
+        ],
+        doneProjects.length > 0 && [
+          m('h1', 'Recently done'),
+          doneProjects.map(project => m(ProjectEditor, project))
+        ],
         m(TextInput, {
           buttonText: 'Add project',
           onEntry: (value) => {
