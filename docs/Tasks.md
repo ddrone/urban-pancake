@@ -35,6 +35,7 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 * [x] Improve look of the text input component field
 * [x] Write down the data type of recent comment, that should have project index with it
 * [x] Implement a separate chronological view of all updates on different projects
+* [ ] Investigate the Electron-like environments for running the code I have, because the current setup of separate client and server is quite annoying
 * [ ] Implement a way to mark projects as done
   * [x] Implement a way to validate enums
   * [x] Write unit tests for enum validation
