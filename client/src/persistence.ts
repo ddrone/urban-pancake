@@ -1,6 +1,7 @@
 import { array, optional, record, Validated } from "./generic/validation";
 import { projectModel } from "./models/project";
 import { shownReminder, reminder } from "./models/reminder";
+import { platform } from "./platform/platform";
 
 const appState = record({
   projects: array(projectModel),
@@ -11,12 +12,12 @@ const appState = record({
 export type AppState = Validated<typeof appState>;
 
 export function saveState(state: AppState) {
-  window.localStorage.setItem('state', JSON.stringify(state));
+  platform.saveState(JSON.stringify(state));
 }
 
 export function loadState(): AppState|undefined {
-  const unparsed = window.localStorage.getItem('state');
-  if (unparsed === null) {
+  const unparsed = platform.loadState();
+  if (unparsed === undefined) {
     return undefined;
   }
 

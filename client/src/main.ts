@@ -10,6 +10,7 @@ import { currentReminder, Reminder, ShownReminder } from './models/reminder';
 import { comparing } from './utils/sorting';
 import { levelNames, relativeDuration, RelativeDuration } from './utils/timestamp';
 import { groupBy } from './utils/group';
+import { platform } from './platform/platform';
 
 interface FlatComment {
   projectIndex: number;
@@ -60,6 +61,10 @@ class Main implements m.ClassComponent {
       this.currentReminder = currentReminder(this.reminders, state.lastReminder);
       console.log(this.currentReminder);
     }
+
+    platform.onClose(() => {
+      saveState(this.serializeState());
+    });
   }
 
   serializeState(): AppState {
