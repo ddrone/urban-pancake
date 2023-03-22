@@ -47,4 +47,5 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
   * [x] Add a way to change status to active and inactive
   * [x] Implement "recently done" section with different (green) background
 * [x] Figure out a good way to show runtime assertions in the UI, they should probably be exposed as visible popups during the development
+* [ ] Brainstorm the approaches to serialization, it's not clear why the current approach with single-file with JSON is bad (for now)
 * [ ] Rationalize automatically generated name for the project somehow
