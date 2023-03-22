@@ -1,23 +1,35 @@
-import { fs, window } from '@tauri-apps/api';
-import { TauriEvent } from '@tauri-apps/api/event';
+import { fs, path, window } from '@tauri-apps/api';
 import { Platform } from './platform';
 
 const FILE_NAME = 'up-state.json';
 
 export class TauriPlatform implements Platform {
+  path: string|undefined;
+
   saveState(state: string): void {
-    fs.writeFile(FILE_NAME, state);
+    if (this.path === undefined) {
+      return;
+    }
+
+    console.log(`Trying to save to path ${this.path}`);
+    fs.writeFile(this.path, state);
   }
 
   async loadState(): Promise<string | undefined> {
+    if (this.path === undefined) {
+      this.path = await path.join(await path.appDataDir(), FILE_NAME);
+    }
+
     try {
-      return await fs.readTextFile(FILE_NAME);
+      return await fs.readTextFile(this.path);
     } catch (e) {
       return undefined;
     }
   }
 
   onClose(callback: () => void): void {
-    window.getCurrent().listen(TauriEvent.WINDOW_CLOSE_REQUESTED, callback);
+    window.getCurrent().onCloseRequested(() => {
+      callback();
+    })
   }
 }

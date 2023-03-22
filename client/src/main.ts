@@ -128,16 +128,6 @@ class Main implements m.ClassComponent {
           onclick: () => {
             const state = this.serializeState();
             saveState(state);
-            fetch('http://localhost:8080/document', {
-              method: 'post',
-              headers: new Headers({
-                'content-type': 'application/json'
-              }),
-              body: JSON.stringify({
-                name: 'up-state',
-                content: state,
-              })
-            })
           }
         }, 'Save state'),
       ),

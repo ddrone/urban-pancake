@@ -1,4 +1,5 @@
 import { BrowserPlatform } from "./browser";
+import { TauriPlatform } from "./tauri";
 
 export interface Platform {
   loadState(): Promise<string|undefined>;
@@ -6,4 +7,4 @@ export interface Platform {
   onClose(callback: () => void): void;
 }
 
-export const platform = new BrowserPlatform();
+export const platform = '__TAURI__' in window ? new TauriPlatform() : new BrowserPlatform();
