@@ -27,40 +27,42 @@ class Main implements m.ClassComponent {
   flatComments: Map<number, FlatComment[]> = new Map();
 
   constructor() {
-    const state = loadState();
-    if (state !== undefined) {
-      state.projects.sort(comparing(p => p.lastUpdated));
-      const comments: FlatComment[] = [];
-      const now = Date.now();
-      for (let i = 0; i < state.projects.length; i++) {
-        const project = state.projects[i];
-        // TODO: the next line is a useful fixup for the data model to ensure that the updated timestamp
-        // is actually the last one. Maybe I should do something to avoid having to do that.
-        project.lastUpdated = Math.max(project.lastUpdated, ...project.updates.map(u => u.timestamp));
-        if (project.status === undefined) {
-          project.status = 'active';
-        }
-        this.projects.push({
-          project
-        })
-        for (const update of project.updates) {
-          if (update.content.kind === "comment") {
-            comments.push({
-              projectIndex: i,
-              comment: update.content.comment,
-              timestamp: relativeDuration(now - update.timestamp),
-              absTimestamp: update.timestamp
-            });
+    loadState().then(state => {
+      if (state !== undefined) {
+        state.projects.sort(comparing(p => p.lastUpdated));
+        const comments: FlatComment[] = [];
+        const now = Date.now();
+        for (let i = 0; i < state.projects.length; i++) {
+          const project = state.projects[i];
+          // TODO: the next line is a useful fixup for the data model to ensure that the updated timestamp
+          // is actually the last one. Maybe I should do something to avoid having to do that.
+          project.lastUpdated = Math.max(project.lastUpdated, ...project.updates.map(u => u.timestamp));
+          if (project.status === undefined) {
+            project.status = 'active';
+          }
+          this.projects.push({
+            project
+          })
+          for (const update of project.updates) {
+            if (update.content.kind === "comment") {
+              comments.push({
+                projectIndex: i,
+                comment: update.content.comment,
+                timestamp: relativeDuration(now - update.timestamp),
+                absTimestamp: update.timestamp
+              });
+            }
           }
         }
+        comments.sort(comparing(fc => -fc.absTimestamp));
+        console.log(comments);
+        this.flatComments = groupBy(comments, fc => fc.timestamp.level);
+        this.reminders = state.reminders;
+        this.currentReminder = currentReminder(this.reminders, state.lastReminder);
+        console.log(this.currentReminder);
+        m.redraw();
       }
-      comments.sort(comparing(fc => -fc.absTimestamp));
-      console.log(comments);
-      this.flatComments = groupBy(comments, fc => fc.timestamp.level);
-      this.reminders = state.reminders;
-      this.currentReminder = currentReminder(this.reminders, state.lastReminder);
-      console.log(this.currentReminder);
-    }
+    });
 
     platform.onClose(() => {
       saveState(this.serializeState());

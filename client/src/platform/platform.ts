@@ -1,7 +1,7 @@
 import { BrowserPlatform } from "./browser";
 
 export interface Platform {
-  loadState(): string|undefined;
+  loadState(): Promise<string|undefined>;
   saveState(state: string): void;
   onClose(callback: () => void): void;
 }

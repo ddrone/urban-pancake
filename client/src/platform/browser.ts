@@ -7,7 +7,7 @@ export class BrowserPlatform implements Platform {
     window.localStorage.setItem(LS_KEY, state);
   }
 
-  loadState(): string | undefined {
+  async loadState(): Promise<string | undefined> {
     const result = window.localStorage.getItem(LS_KEY);
 
     return result ?? undefined;

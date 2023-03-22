@@ -15,8 +15,8 @@ export function saveState(state: AppState) {
   platform.saveState(JSON.stringify(state));
 }
 
-export function loadState(): AppState|undefined {
-  const unparsed = platform.loadState();
+export async function loadState(): Promise<AppState|undefined> {
+  const unparsed = await platform.loadState();
   if (unparsed === undefined) {
     return undefined;
   }
