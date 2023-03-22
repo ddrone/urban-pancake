@@ -45,7 +45,7 @@ export function relativeDuration(delta: number): RelativeDuration {
     }
   }
   if (delta > week) {
-    const count = Math.floor(delta / month);
+    const count = Math.floor(delta / week);
     return {
       level: 4,
       readable: count === 1 ? 'a week ago' : `${count} weeks ago`
