@@ -39,12 +39,12 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
   * [x] Seems like the way to proceed with that is to follow the route of following tutorial branch about adding support for Tauri into existing project
   * [x] Get the Tauri app to the following state: opening the app automatically loads the latest state, and closing the app automatically saves it
   * [x] After the Tauri app is done, remove the server code to avoid polluting the repository
-* [ ] Implement a way to mark projects as done
+* [x] Implement a way to mark projects as done
   * [x] Implement a way to validate enums
   * [x] Write unit tests for enum validation
   * [x] Add a new status field for the project
   * [x] Set 'active' status to all the projects and then make it required
-  * [ ] Add a way to change status to active and inactive
-  * [ ] Implement "recently done" section with different (green) background
+  * [x] Add a way to change status to active and inactive
+  * [x] Implement "recently done" section with different (green) background
 * [ ] Figure out a good way to show runtime assertions in the UI, they should probably be exposed as visible popups during the development
 * [ ] Rationalize automatically generated name for the project somehow

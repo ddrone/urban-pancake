@@ -29,6 +29,8 @@ export const projectModel = record({
   updates: array(updateModel)
 });
 
+export type Status = Validated<typeof status>;
+
 export type Update = Validated<typeof updateModel>;
 
 export type Project = Validated<typeof projectModel>;

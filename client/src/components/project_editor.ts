@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Project, Update } from '../models/project';
+import { Project, Status, Update } from '../models/project';
 import { relativeToNow } from '../utils/timestamp';
 import { Button } from './button';
 import { TextInput } from './text_input';
@@ -39,6 +39,20 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
     }
   }
 
+  setStatus(project: Project, status: Status) {
+    const ts = Date.now();
+    project.lastUpdated = ts;
+    project.status = status,
+    project.updates.push({
+      timestamp: Date.now(),
+      content: {
+        kind: 'update',
+        status: status,
+        description: undefined,
+      }
+    });
+  }
+
   view(vnode: m.Vnode<ProjectState>): m.Child {
     const project = vnode.attrs.project;
     return m(`.card.${project.status}`,
@@ -64,21 +78,23 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
         },
       }),
       project.status !== 'done' &&
-      m(Button, {
-        onclick() {
-          const ts = Date.now();
-          project.lastUpdated = ts;
-          project.status = 'done',
-          project.updates.push({
-            timestamp: Date.now(),
-            content: {
-              kind: 'update',
-              status: 'done',
-              description: undefined,
-            }
-          })
-        },
-      }, 'Mark as done')
+        m(Button, {
+          onclick: () => {
+            this.setStatus(project, 'done')
+          },
+        }, 'Mark as done'),
+      project.status === 'active' &&
+        m(Button, {
+          onclick: () => {
+            this.setStatus(project, 'inactive')
+          }
+        }, 'Mark as inactive'),
+      project.status === 'inactive' &&
+        m(Button, {
+          onclick: () => {
+            this.setStatus(project, 'active')
+          }
+        }, 'Mark as active')
     );
   }
 }

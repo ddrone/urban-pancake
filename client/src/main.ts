@@ -84,7 +84,8 @@ class Main implements m.ClassComponent {
   }
 
   view(): m.Children {
-    const activeProjects = this.projects.filter(p => p.project.status !== 'done');
+    const activeProjects = this.projects.filter(p => p.project.status === 'active');
+    const inactiveProjects = this.projects.filter(p => p.project.status === 'inactive');
     const doneProjects = this.projects.filter(p => p.project.status === 'done');
     return [
       m('.column',
@@ -101,6 +102,10 @@ class Main implements m.ClassComponent {
         doneProjects.length > 0 && [
           m('h1', 'Recently done'),
           doneProjects.map(project => m(ProjectEditor, project))
+        ],
+        inactiveProjects.length > 0 && [
+          m('h1', 'Inactive projects'),
+          inactiveProjects.map(project => m(ProjectEditor, project))
         ],
         m(TextInput, {
           buttonText: 'Add project',
