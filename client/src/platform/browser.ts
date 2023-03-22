@@ -16,4 +16,8 @@ export class BrowserPlatform implements Platform {
   onClose(callback: () => void): void {
     window.addEventListener('unload', callback);
   }
+
+  showError(msg: string): void {
+    console.error(msg);
+  }
 }

@@ -1,4 +1,4 @@
-import { fs, path, window } from '@tauri-apps/api';
+import { fs, path, window, notification } from '@tauri-apps/api';
 import { Platform } from './platform';
 
 const FILE_NAME = 'up-state.json';
@@ -30,6 +30,13 @@ export class TauriPlatform implements Platform {
   onClose(callback: () => void): void {
     window.getCurrent().onCloseRequested(() => {
       callback();
+    })
+  }
+
+  showError(msg: string): void {
+    notification.sendNotification({
+      title: 'Runtime error',
+      body: msg
     })
   }
 }

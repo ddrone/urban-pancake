@@ -5,6 +5,7 @@ export interface Platform {
   loadState(): Promise<string|undefined>;
   saveState(state: string): void;
   onClose(callback: () => void): void;
+  showError(msg: string): void;
 }
 
 export const platform = '__TAURI__' in window ? new TauriPlatform() : new BrowserPlatform();
