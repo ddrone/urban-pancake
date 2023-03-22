@@ -37,6 +37,8 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 * [x] Implement a separate chronological view of all updates on different projects
 * [ ] Investigate the Electron-like environments for running the code I have, because the current setup of separate client and server is quite annoying
   * [ ] Seems like the way to proceed with that is to follow the route of following tutorial branch about adding support for Tauri into existing project
+  * [ ] Get the Tauri app to the following state: opening the app automatically loads the latest state, and closing the app automatically saves it
+  * [ ] After the Tauri app is done, remove the server code to avoid polluting the repository
 * [ ] Implement a way to mark projects as done
   * [x] Implement a way to validate enums
   * [x] Write unit tests for enum validation
