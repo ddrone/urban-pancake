@@ -47,9 +47,8 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
   * [x] Add a way to change status to active and inactive
   * [x] Implement "recently done" section with different (green) background
 * [x] Figure out a good way to show runtime assertions in the UI, they should probably be exposed as visible popups during the development
-* [ ] Better workflow for running the app
-  * [ ] Make it so that the application does not show the window by default but shows a system tray icon
-  * [ ] Clicking on tray icon should open the window
+* [x] Better workflow for running the app
+  * [x] Clicking on tray icon should open the window
   * [x] Closing the window should not terminate the application
-  * [ ] Only one window should be visible at a time
+  * [x] Only one window should be visible at a time
 * [ ] Rationalize automatically generated name for the project somehow
