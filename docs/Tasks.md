@@ -50,6 +50,6 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 * [ ] Better workflow for running the app
   * [ ] Make it so that the application does not show the window by default but shows a system tray icon
   * [ ] Clicking on tray icon should open the window
-  * [ ] Closing the window should not terminate the application
+  * [x] Closing the window should not terminate the application
   * [ ] Only one window should be visible at a time
 * [ ] Rationalize automatically generated name for the project somehow
