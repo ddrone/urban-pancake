@@ -20,8 +20,10 @@ fn main() {
             std::process::exit(0);
           }
           "show" => {
-            let window = app.get_window("main").unwrap();
-            window.show().unwrap();
+            match app.get_window("main") {
+              Some(w) => w.show().unwrap(),
+              None => app.restart()
+            }
           }
           _ => {}
         }
