@@ -28,8 +28,10 @@ export class TauriPlatform implements Platform {
   }
 
   onClose(callback: () => void): void {
-    window.getCurrent().onCloseRequested(() => {
+    window.getCurrent().onCloseRequested((event) => {
       callback();
+      event.preventDefault();
+      window.getCurrent().hide();
     })
   }
 
