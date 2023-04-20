@@ -4,3 +4,7 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 
 * [x] Add a way to see all the changes on the project
 * [ ] Implement support for task lists in the app itself; maybe in the simplest way via associating a file with a project
+  * [x] Add a button to open "Open File" dialog
+  * [ ] Save the associated file into the model
+  * [ ] When there is file associated with a project, the name should be displayed as a hyperlink
+  * [ ] Clicking the hyperlink should actually open a file

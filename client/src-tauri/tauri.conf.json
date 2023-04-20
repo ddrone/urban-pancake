@@ -15,6 +15,9 @@
       "all": true,
       "fs": {
         "scope": ["$APPDATA/**/*"]
+      },
+      "dialog": {
+        "open": true
       }
     },
     "bundle": {

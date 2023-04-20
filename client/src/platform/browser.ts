@@ -20,4 +20,9 @@ export class BrowserPlatform implements Platform {
   showError(msg: string): void {
     console.error(msg);
   }
+
+  async openFileDialog(): Promise<string | undefined> {
+    console.log('openFile is not available in web shell');
+    return undefined;
+  }
 }

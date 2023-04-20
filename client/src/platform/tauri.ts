@@ -1,4 +1,4 @@
-import { fs, path, window, notification } from '@tauri-apps/api';
+import { fs, path, window, notification, dialog } from '@tauri-apps/api';
 import { Platform } from './platform';
 
 const FILE_NAME = 'up-state.json';
@@ -40,5 +40,16 @@ export class TauriPlatform implements Platform {
       title: 'Runtime error',
       body: msg
     })
+  }
+
+  async openFileDialog(): Promise<string | undefined> {
+    const result = await dialog.open({
+      multiple: false
+    });
+
+    if (typeof result === 'string') {
+      return result;
+    }
+    return undefined;
   }
 }

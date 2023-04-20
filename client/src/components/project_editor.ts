@@ -3,6 +3,7 @@ import { Project, Status, Update } from '../models/project';
 import { relativeToNow } from '../utils/timestamp';
 import { Button } from './button';
 import { TextInput } from './text_input';
+import { platform } from '../platform/platform';
 
 export interface ProjectState {
   project: Project
@@ -113,7 +114,13 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
           onclick: () => {
             this.setStatus(project, 'active')
           }
-        }, 'Mark as active')
+        }, 'Mark as active'),
+      m('button', {
+        onclick: async () => {
+          const name = await platform.openFileDialog();
+          console.log(name);
+        }
+      }, 'Associate file')
     );
   }
 }

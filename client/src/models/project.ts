@@ -26,7 +26,8 @@ export const projectModel = record({
   description: str,
   status,
   lastUpdated: num,
-  updates: array(updateModel)
+  updates: array(updateModel),
+  associatedFile: optional(str),
 });
 
 export type Status = Validated<typeof status>;
@@ -48,6 +49,7 @@ export function createProject(description: string): Project {
         kind: 'created',
         description,
       }
-    }]
+    }],
+    associatedFile: undefined
   }
 }
