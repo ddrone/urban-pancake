@@ -9,6 +9,8 @@ export interface ProjectState {
 }
 
 export class ProjectEditor implements m.ClassComponent<ProjectState> {
+  seeAllUpdates = false;
+
   renderTimestamp(ts: number): m.Child {
     return m('span.small', relativeToNow(ts).readable);
   }
@@ -39,6 +41,25 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
     }
   }
 
+  renderUpdates(updates: Update[]): m.Child {
+    const shownUpdates = this.seeAllUpdates ? updates.slice() : updates.slice(-3)
+    return m('.updates',
+      m('div', shownUpdates.reverse().map(update => this.renderUpdate(update))),
+      updates.length > 3 && !this.seeAllUpdates &&
+        m('button', {
+          onclick: () => {
+            this.seeAllUpdates = true;
+          }
+        }, 'Show all updates'),
+      this.seeAllUpdates &&
+        m('button', {
+          onclick: () => {
+            this.seeAllUpdates = false;
+          }
+        }, 'Recent updates only')
+    );
+  }
+
   setStatus(project: Project, status: Status) {
     const ts = Date.now();
     project.lastUpdated = ts;
@@ -60,9 +81,7 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
         m('.header-update', this.renderTimestamp(project.lastUpdated)),
         m('h1', project.description),
       ),
-      project.updates.length > 1 && m('.updates',
-        m('div', project.updates.slice(-3).reverse().map(update => this.renderUpdate(update)))
-      ),
+      project.updates.length > 1 && this.renderUpdates(project.updates),
       m(TextInput, {
         buttonText: 'Add comment',
         onEntry(value) {
