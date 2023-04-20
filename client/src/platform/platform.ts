@@ -7,6 +7,7 @@ export interface Platform {
   onClose(callback: () => void): void;
   showError(msg: string): void;
   openFileDialog(): Promise<string|undefined>;
+  openFile(name: string): void;
 }
 
 export const platform = '__TAURI__' in window ? new TauriPlatform() : new BrowserPlatform();

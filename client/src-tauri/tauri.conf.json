@@ -18,6 +18,14 @@
       },
       "dialog": {
         "open": true
+      },
+      "shell": {
+        "execute": true,
+        "scope": [{
+          "cmd": "code",
+          "name": "VSCode",
+          "args": true
+        }]
       }
     },
     "bundle": {

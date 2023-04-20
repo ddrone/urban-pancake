@@ -1,4 +1,4 @@
-import { fs, path, window, notification, dialog } from '@tauri-apps/api';
+import { fs, path, window, notification, dialog, shell } from '@tauri-apps/api';
 import { Platform } from './platform';
 
 const FILE_NAME = 'up-state.json';
@@ -51,5 +51,10 @@ export class TauriPlatform implements Platform {
       return result;
     }
     return undefined;
+  }
+
+  openFile(name: string) {
+    const cmd = new shell.Command("VSCode", [name]);
+    cmd.execute();
   }
 }

@@ -76,12 +76,13 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
   }
 
   renderDescription(project: Project): m.Child {
+    const file = project.associatedFile;
     return m('h1',
-      project.associatedFile === undefined ?
+      file  === undefined ?
         project.description :
         m('a', {
           onclick: () => {
-            console.log(`Should open file ${project.associatedFile}`);
+            platform.openFile(file);
           }
         }, project.description)
     );
