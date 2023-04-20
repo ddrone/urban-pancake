@@ -75,12 +75,24 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
     });
   }
 
+  renderDescription(project: Project): m.Child {
+    return m('h1',
+      project.associatedFile === undefined ?
+        project.description :
+        m('a', {
+          onclick: () => {
+            console.log(`Should open file ${project.associatedFile}`);
+          }
+        }, project.description)
+    );
+  }
+
   view(vnode: m.Vnode<ProjectState>): m.Child {
     const project = vnode.attrs.project;
     return m(`.card.${project.status}`,
       m('.card-header',
         m('.header-update', this.renderTimestamp(project.lastUpdated)),
-        m('h1', project.description),
+        this.renderDescription(project),
       ),
       project.updates.length > 1 && this.renderUpdates(project.updates),
       m(TextInput, {
@@ -115,10 +127,13 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
             this.setStatus(project, 'active')
           }
         }, 'Mark as active'),
-      m('button', {
+      project.associatedFile === undefined && m('button', {
         onclick: async () => {
           const name = await platform.openFileDialog();
-          console.log(name);
+          if (name !== undefined) {
+            project.associatedFile = name;
+            m.redraw();
+          }
         }
       }, 'Associate file')
     );
