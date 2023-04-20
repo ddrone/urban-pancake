@@ -20,3 +20,10 @@ An update can be one of:
 * Arbitrary note (e.g. something like "read chapter of a book")
 
 Each update has a timestamp associated with it, and the state of the project has to be completely recoverable from the list of updates, starting from the beginning.
+
+### Associating a text file with a project for keeping a task list
+
+Here's an idea: I don't want to support adding tasks to track in the application. Recently, plain Markdown files have been working for me well for that purpose. So, in order to be able to have a task list associated with the project, I'm just going to add an ability to "attach" a file to a project. The way it works as follows:
+
+* Each project has "Attach file" button. Clicking on it opens a file dialog, and upon selecting a file, its name will be saved in appropriate JSON field.
+* Upon attaching a file, name of project is converted to a hyperlink. Clicking that hyperlink will open associated file in VSCode (to be made configurable later).
