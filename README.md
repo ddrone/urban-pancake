@@ -16,6 +16,12 @@ cd client
 npm run tauri build
 ```
 
+## Local data
+
+```bash
+cd ~/.local/share/name.awesomesauce.urban-pancake
+```
+
 ## Links
 
 * [Vision](docs/Vision.md)
