@@ -10,6 +10,7 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
   * [ ] Sketch out an idea for REPL that is able to render data in other ways rather than just printing the text
     * [ ] Write that the PKM is going to be integrated into programming language, but the exact details are still unclear
   * [ ] Write a parser and evaluator for a language that **does not have any computation at all**, and the only thing it can do is to typecheck data
+    * [ ] Actually, don't even write a parser, I don't need one in the beginning. Just use `JSON.parse` instead.
   * [ ] Printed out records should be displayed in a key-value table (two columns)
   * [ ] Also define a datatype of lists, and make it possible to print lists of records as a table with an arbitrary amount of columns
   * [ ] Only then start to work on some computation rules. Start with arithmetics and function evaluation of recursive functions
