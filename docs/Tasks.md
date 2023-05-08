@@ -4,6 +4,8 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 
 ## Active
 
+* [ ] Make it possible to run the application using different data store (for testing)
+* [ ] Make a video recording of the application in action
 * [ ] Start tackling the second part, adding an implementation of a programming language into the mix
   * [ ] Sketch out an idea for REPL that is able to render data in other ways rather than just printing the text
     * [ ] Write that the PKM is going to be integrated into programming language, but the exact details are still unclear
