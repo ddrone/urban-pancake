@@ -110,6 +110,24 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
           })
         },
       }),
+      m(Button, {
+        onclick: () => {
+          const result = prompt("Rename project", project.description);
+          if (result !== null) {
+            const ts = Date.now();
+            project.lastUpdated = ts;
+            project.updates.push({
+              timestamp: ts,
+              content: {
+                kind: 'update',
+                description: result,
+                status: undefined
+              }
+            });
+            project.description = result;
+          }
+        }
+      }, 'Rename'),
       project.status !== 'done' &&
         m(Button, {
           onclick: () => {
