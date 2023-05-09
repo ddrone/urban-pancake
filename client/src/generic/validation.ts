@@ -114,3 +114,24 @@ export function union<T extends Record<string, Record<string, Validator<any>>>>(
     }
   }
 }
+
+class LazyValidator<T> implements Validator<T> {
+  thunk: () => Validator<T>;
+  forced?: Validator<T>;
+
+  constructor(thunk: () => Validator<T>) {
+    this.thunk = thunk;
+  }
+
+  validate(input: any): input is T {
+    if (this.forced === undefined) {
+      this.forced = this.thunk();
+    }
+
+    return this.forced.validate(input);
+  }
+}
+
+export function lazy<T>(thunk: () => Validator<T>): Validator<T> {
+  return new LazyValidator(thunk);
+}

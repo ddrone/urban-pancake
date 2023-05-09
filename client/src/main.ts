@@ -11,6 +11,7 @@ import { comparing } from './utils/sorting';
 import { levelNames, relativeDuration, RelativeDuration } from './utils/timestamp';
 import { groupBy } from './utils/group';
 import { platform } from './platform/platform';
+import { Repl } from './language/repl';
 
 interface FlatComment {
   projectIndex: number;
@@ -162,4 +163,5 @@ class Main implements m.ClassComponent {
 m.route(document.querySelector('#app')!, "/main", {
   "/main": Main,
   "/widgets": Widgets,
+  "/repl": Repl
 });
