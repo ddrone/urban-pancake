@@ -1,28 +1,15 @@
-import { Validator, array, lazy, record, str, union } from "../generic/validation";
-import { Union } from "../utils/union";
+import { Kinds, Union } from "../utils/union";
 
-export type Type = Union<{
+export type RecordEntry = [string, Type];
+
+export type Type = Union<Kinds<{
   number: {},
   string: {},
-  bool: {},
+  boolean: {},
   record: {
-    items: Array<{
-      name: string,
-      type: Type,
-    }>
+    items: Map<string, Type>
   },
   array: {
     item: Type
   }
-}>;
-
-const typeModel: Validator<Type> = lazy(() => union({
-  "number": {},
-  "string": {},
-  "record": {
-    items: array(record({
-      name: str,
-      type: typeModel
-    }))
-  }
-}));
+}>>;
