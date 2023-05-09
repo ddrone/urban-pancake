@@ -1,9 +1,10 @@
 import { Validator, array, lazy, record, str, union } from "../generic/validation";
 import { Union } from "../utils/union";
 
-type Type = Union<{
+export type Type = Union<{
   number: {},
   string: {},
+  bool: {},
   record: {
     items: Array<{
       name: string,
