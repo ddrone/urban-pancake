@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Json, readJson } from '../utils/json';
-import { Type } from './types';
+import { Type, toTypeObject } from './types';
 import { inferType } from './typecheck';
 
 class Input {
@@ -34,8 +34,8 @@ export class Repl implements m.ClassComponent {
     return m('.card',
       input.rawInput,
       m('br'),
-      // TODO: change stringify to a better function that also renders maps and sets
-      JSON.stringify(input.type)
+      input.type !== undefined &&
+        JSON.stringify(toTypeObject(input.type))
     );
   }
 

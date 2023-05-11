@@ -69,8 +69,11 @@ export function inferType(json: Json): Type|undefined {
         return undefined;
       }
     }
-    
-    return maybeType;
+
+    return {
+      kind: 'array',
+      item: maybeType
+    }
   }
   else if (isJsonObject(json)) {
     const entries: RecordEntry[] = [];
