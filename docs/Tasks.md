@@ -7,7 +7,6 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 * [ ] Make it possible to run the application using different data store (for testing)
 * [ ] Make a video recording of the application in action
 * [ ] Start tackling the second part, adding an implementation of a programming language into the mix
-  * [ ] Write a helper function that does JSON.stringify, but also supports sets and maps
   * [ ] Sketch out an idea for REPL that is able to render data in other ways rather than just printing the text
     * [ ] Write that the PKM is going to be integrated into programming language, but the exact details are still unclear
   * [ ] Write a parser and evaluator for a language that **does not have any computation at all**, and the only thing it can do is to typecheck data
