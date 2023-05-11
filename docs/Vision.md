@@ -25,3 +25,19 @@ The data model is following: a card is represented in the application by the tex
 (Actually, never mind, I'm not going to display an interstitial. Instead, the application will just show it on top. I want to make the reminders to be "ambient", that is, not requiring any user input to interact with them. If this is not going to work and I will notice that I skip these, I will update the design later.)
 
 One thing that needs to be clarified what does it mean by "first time of the day". I consider this to be following: save the timestamp when the reminder was shown the last time, and if the current timestamp is more than that time + 19 hours, then consider this to be a new day. Using the date leads to a problem where a notification can be shown if I am awake at 12am; using 24 hours of increment leads to a problem that if I start to use the application around the same time each day, the notification might be shown only on a second refresh, pushing the time when it's going to be shown further during the day.
+
+## Use case 3: pretty-printing data structures
+
+Previous use cases have been mostly about the part about keeping track of information; which is about PKM half of the project. Now I want to switch gears a little into PL half of the project.
+
+Building mental models of how the software works is probably more time-consuming part of the software development than writing the code itself. One of the most common ways to do that is to add "debugging print" statements in the middle of control flow, that shows the actual data a program is operating on. One can imagine more powerful ways to collect such information, but even if we keep the standard flow of
+
+* Add a debug print statement
+* Re-run the program
+* Look at the output
+
+There are tons of improvements that could be made. First of all, for some reason "debug print" in 2023 still means "print out plain text to the terminal". More than that, in majority of the programming languages it's going to be even a big hassle to print a compound data structure, leading to someone printing out several scalar values (such as integers, strings or booleans) by hand. JavaScript development on the web-browser side is a tad better: `console.log` can allow to inspect arbitrary data structures and `console.table` allows one to even print a table!
+
+I would like to have a programming language that will make it possible to display static state of a data structure in a dynamic, configurable way; and even more, in such a way that it won't require a programmer to think in advance whether the data structure is going to be printed at all. (So no, while `deriving (Show)` in Haskell is an improvement, it still sucks that you have to do it for every single data structure you define)
+
+As a starting point, I conceive a following idea: take a JSON object (parsed via `JSON.parse`), typecheck it, and if it has a regular shape "print it out" as an interactive widget in a browser. Array of records is going to be displayed as a table, there would be a button to transpose the table, compound objects can be expanded and so on.
