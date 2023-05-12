@@ -4,14 +4,10 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 
 ## Active
 
-* [ ] Make it possible to run the application using different data store (for testing)
-* [ ] Make a video recording of the application in action
 * [ ] Start tackling the second part, adding an implementation of a programming language into the mix
-  * [ ] Sketch out an idea for REPL that is able to render data in other ways rather than just printing the text
-    * [ ] Write that the PKM is going to be integrated into programming language, but the exact details are still unclear
-  * [ ] Write a parser and evaluator for a language that **does not have any computation at all**, and the only thing it can do is to typecheck data
-    * [ ] Actually, don't even write a parser, I don't need one in the beginning. Just use `JSON.parse` instead.
+  * [x] Sketch out an idea for REPL that is able to render data in other ways rather than just printing the text
   * [ ] Printed out records should be displayed in a key-value table (two columns)
+    * [ ] Finish the function that renders the header of a table for array of records
   * [ ] Also define a datatype of lists, and make it possible to print lists of records as a table with an arbitrary amount of columns
   * [ ] Only then start to work on some computation rules. Start with arithmetics and function evaluation of recursive functions
 * [ ] Sketch out a plan for tackling the persistence issues
@@ -22,6 +18,8 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
   * [ ] Second problem: some scenarios of quitting the application might result in data not being saved
     * [ ] Easiest, although not the most reliable, way to tackle the problem is to save the data when the focus is lost
     * [ ] After implementing the workaround with saving the data upon losing the focus, do some research on tackling the data properly
+* [ ] Make it possible to run the application using different data store (for testing)
+* [ ] Make a video recording of the application in action
 
 ## Completed
 
