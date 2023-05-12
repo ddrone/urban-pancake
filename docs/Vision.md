@@ -41,3 +41,26 @@ There are tons of improvements that could be made. First of all, for some reason
 I would like to have a programming language that will make it possible to display static state of a data structure in a dynamic, configurable way; and even more, in such a way that it won't require a programmer to think in advance whether the data structure is going to be printed at all. (So no, while `deriving (Show)` in Haskell is an improvement, it still sucks that you have to do it for every single data structure you define)
 
 As a starting point, I conceive a following idea: take a JSON object (parsed via `JSON.parse`), typecheck it, and if it has a regular shape "print it out" as an interactive widget in a browser. Array of records is going to be displayed as a table, there would be a button to transpose the table, compound objects can be expanded and so on.
+
+How the objects are going to be printed:
+
+* Scalars: just directly
+* Arrays
+  * of scalars: linear list
+  * of arrays: two-dimensional table, with "cell printing" of values
+  * of records: two-dimensional table, with a header based on the record shape
+* Record
+  * Table of two columns, with "cell printing" of values
+
+"Cell printing" means following:
+
+* For a scalar, print directly
+* For an array, print several values vertically. This means one "row" in a table might be actually several rows and will have to use `colspan`. The values are printed using "compact cell printing"
+* For a record, print a clickable button that will display the value in expanded way in a popup
+
+"Compact cell printing" means:
+
+* Printing array as a clickable button that will display the value in expanded way
+* Otherwise, just do the same thing as with regular cell printing
+
+If this doesn't make sense, it's not supposed to; this is less documentation of a code and more a sketch that I want to use while writing it.
