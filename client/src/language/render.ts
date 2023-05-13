@@ -121,7 +121,7 @@ export function printValue(type: Type, value: Json): m.Child {
 
     if (elementType.kind === 'record') {
       const headerTrees = buildHeaderTrees(elementType.items);
-      return m('table',
+      return m('table.printed-value',
         renderHeaderTrees(headerTrees)
       );
 

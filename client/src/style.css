@@ -102,3 +102,13 @@ ul {
 .red {
   color: darkred;
 }
+
+.printed-value {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.printed-value td {
+  border: 1px solid black;
+  padding: 0 .5em;
+}

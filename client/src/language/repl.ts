@@ -1,7 +1,8 @@
 import m from 'mithril';
 import { Json, readJson } from '../utils/json';
-import { Type, toTypeObject } from './types';
+import { Type } from './types';
 import { inferType } from './typecheck';
+import { printValue } from './render';
 
 class Input {
   rawInput: string;
@@ -35,7 +36,7 @@ export class Repl implements m.ClassComponent {
       input.rawInput,
       m('br'),
       input.type !== undefined &&
-        JSON.stringify(toTypeObject(input.type))
+        printValue(input.type, input.input),
     );
   }
 
@@ -53,7 +54,7 @@ export class Repl implements m.ClassComponent {
           }
         }),
         m('br'),
-        m('button', 
+        m('button',
           {
             onclick: () => {
               this.handleEntry();
