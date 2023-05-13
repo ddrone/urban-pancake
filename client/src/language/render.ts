@@ -1,9 +1,9 @@
 import m from 'mithril';
-import { Type } from './types';
-import { Json, JsonArray } from '../utils/json';
+import { Type, isPrimitiveType } from './types';
+import { Json, JsonArray, JsonObject, isJsonObject } from '../utils/json';
 import { todo } from '../utils/todo';
 import { onlyMapEntry } from '../utils/map';
-import { empty2D, sumArray } from '../utils/arrays';
+import { empty2D, maxArray, sumArray } from '../utils/arrays';
 
 interface HeaderTree {
   name: string;
@@ -122,7 +122,8 @@ export function printValue(type: Type, value: Json): m.Child {
     if (elementType.kind === 'record') {
       const headerTrees = buildHeaderTrees(elementType.items);
       return m('table.printed-value',
-        renderHeaderTrees(headerTrees)
+        renderHeaderTrees(headerTrees),
+        arr.map(value => printRecordEntry(elementType.items, value as JsonObject))
       );
 
       // TODO: Then, need to print every single entry of the record as a row.
@@ -130,6 +131,64 @@ export function printValue(type: Type, value: Json): m.Child {
   }
   else {
     // Primitive types
+    return `${value}`;
+  }
+}
+
+export function printRecordEntry(fields: Map<string, Type>, value: JsonObject): m.Child[] {
+  const cells: string[][] = [];
+  printRecordEntryToCells(cells, fields, value);
+
+  const rowCount = maxArray(0, cells.map(column => column.length));
+  const rowOrderCells = empty2D<m.Child>(rowCount);
+
+  for (const column of cells) {
+    const lastDiff = rowCount - column.length;
+
+    for (let i = 0; i < column.length; i++) {
+      const last = i + 1 === column.length;
+      rowOrderCells[i].push(m('td', {
+        rowspan: 1 + (last ? lastDiff : 0)
+      }, column[i]));
+    }
+  }
+
+  return rowOrderCells.map(cells => m('tr', cells));
+}
+
+function printRecordEntryToCells(cells: string[][], fields: Map<string, Type>, value: JsonObject) {
+  for (const [name, fieldType] of fields.entries()) {
+    const fieldValue = value[name];
+
+    if (fieldType.kind === 'record') {
+      printRecordEntryToCells(cells, fieldType.items, fieldValue as JsonObject);
+    }
+    else {
+      cells.push(printCellValue(fieldType, fieldValue));
+    }
+  }
+}
+
+export function printCellValue(type: Type, value: Json): string[] {
+  if (type.kind === 'array' && isPrimitiveType(type.item)) {
+    const array = value as JsonArray;
+    if (array.length === 0) {
+      return ['...empty array'];
+    }
+    return array.map((x) => printCompactCellValue(type.item, x));
+  }
+  return [printCompactCellValue(type, value)];
+}
+
+// TODO: make the compound values clickable buttons instead
+export function printCompactCellValue(type: Type, value: Json): string {
+  if (type.kind === 'array') {
+    return '[array]';
+  }
+  else if (type.kind === 'record') {
+    return '[record]';
+  }
+  else {
     return `${value}`;
   }
 }

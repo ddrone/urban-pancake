@@ -46,3 +46,7 @@ export function toTypeObject(type: Type): TypeObject {
       }
   }
 }
+
+export function isPrimitiveType(type: Type): boolean {
+  return type.kind === 'number' || type.kind === 'string' || type.kind === 'boolean';
+}
