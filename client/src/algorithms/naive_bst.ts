@@ -1,4 +1,5 @@
 import { defined, maxArray, sumArray } from "../utils/arrays";
+import m from 'mithril';
 
 export interface Node {
   key: number;
@@ -95,5 +96,48 @@ export function buildAugmentedTree(tree: Node): AugmentedTree {
     ownHeight: 1,
     width,
     children
+  }
+}
+
+interface TreeCell {
+  key: number;
+  colspan: number;
+  rowspan: number;
+}
+
+function renderCell(cell: TreeCell): m.Child {
+  return m('td', {
+    colspan: cell.colspan,
+    rowspan: cell.rowspan,
+  }, cell.key);
+}
+
+export function renderAugmentedTree(tree: AugmentedTree): m.Child {
+  const cells: TreeCell[][] = [];
+  for (let i = 0; i < tree.totalHeight; i++) {
+    cells.push([]);
+  }
+
+  flattenAugmentedTreeTo(cells, tree, 0);
+
+  return m('table',
+    {
+      border: 1
+    },
+    cells.map(row => m('tr',
+      row.map(renderCell)
+    ))
+  );
+}
+
+function flattenAugmentedTreeTo(rows: TreeCell[][], tree: AugmentedTree, start: number) {
+  rows[start].push({
+    key: tree.key,
+    rowspan: tree.ownHeight,
+    colspan: tree.width
+  });
+
+  for (const child of tree.children) {
+    flattenAugmentedTreeTo(rows, child, start + tree.ownHeight)
   }
 }
