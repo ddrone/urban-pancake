@@ -13,3 +13,14 @@ export function sumArray(xs: number[]): number {
   }
   return result;
 }
+
+export function maxArray(def: number, xs: number[]): number {
+  if (xs.length === 0) {
+    return def;
+  }
+  return Math.max(...xs);
+}
+
+export function defined<T>(...items: Array<T|undefined>): T[] {
+  return items.filter(x => x !== undefined) as T[];
+}
