@@ -3,20 +3,23 @@ import { Type } from './types';
 import { Json, JsonArray } from '../utils/json';
 import { todo } from '../utils/todo';
 import { onlyMapEntry } from '../utils/map';
-import { sumArray } from '../utils/arrays';
+import { empty2D, sumArray } from '../utils/arrays';
 
 interface HeaderTree {
   name: string;
-  depth: number;
+  ownHeight: number;
+  height: number;
   width: number;
-  children?: HeaderTree[];
+  children: HeaderTree[];
 }
 
 function headerTreeLeaf(name: string): HeaderTree {
   return {
     name,
-    depth: 1,
+    ownHeight: 1,
+    height: 1,
     width: 1,
+    children: []
   }
 }
 
@@ -36,6 +39,17 @@ function innermost(item: Type, name: string): [Type, string] {
   return [item, name];
 }
 
+function normalizeTrees(trees: HeaderTree[]): number {
+  const childrenHeight = Math.max(...trees.map(child => child.height));
+  for (const tree of trees) {
+    const diff = childrenHeight - tree.height;
+    tree.height += diff;
+    tree.ownHeight += diff;
+  }
+
+  return childrenHeight;
+}
+
 function buildHeaderTrees(items: Map<string, Type>, prefix?: string): HeaderTree[] {
   const result: HeaderTree[] = [];
   for (const [key, field] of items.entries()) {
@@ -46,11 +60,13 @@ function buildHeaderTrees(items: Map<string, Type>, prefix?: string): HeaderTree
         result.push(headerTreeLeaf(treeItemName));
       }
       else {
-        const depth = Math.max(...children.map(child => child.depth)) + 1;
+        const childrenHeight = normalizeTrees(children);
         const width = sumArray(children.map(child => child.width));
+
         result.push({
           name: treeItemName,
-          depth,
+          height: childrenHeight + 1,
+          ownHeight: 1,
           children,
           width
         })
@@ -64,33 +80,25 @@ function buildHeaderTrees(items: Map<string, Type>, prefix?: string): HeaderTree
   return result;
 }
 
-interface Cell {
-  content: string;
-  colspan: number;
-  rowspan: number;
+export function renderHeaderTrees(trees: HeaderTree[]): m.Child[] {
+  const height = normalizeTrees(trees);
+  const rows = empty2D<m.Child>(height);
+
+  for (const tree of trees) {
+    renderHeaderTreeTo(rows, tree, 0);
+  }
+
+  return rows.map(row => m('tr', row));
 }
 
-function buildColumn(tree: HeaderTree, height: number): Cell[][] {
-  if (tree.depth > height) {
-    throw new Error('should not happen');
-  }
+function renderHeaderTreeTo(rows: m.Child[][], tree: HeaderTree, row: number) {
+  rows[row].push(m('td', {
+    rowspan: tree.ownHeight,
+    colspan: tree.width
+  }, tree.name));
 
-  const firstColspan = height - tree.depth + 1;
-
-  const result: Cell[][] = [
-    [{
-      content: tree.name,
-      colspan: firstColspan,
-      rowspan: tree.width
-    }]
-  ];
-
-  let children = tree.children;
-  if (children === undefined) {
-    return result;
-  }
-
-  while (true) {
+  for (const child of tree.children) {
+    renderHeaderTreeTo(rows, child, row + tree.ownHeight);
   }
 }
 
@@ -112,11 +120,12 @@ export function printValue(type: Type, value: Json): m.Child {
     }
 
     if (elementType.kind === 'record') {
-      // First, need to generate the header.
-      todo('That')
+      const headerTrees = buildHeaderTrees(elementType.items);
+      return m('table',
+        renderHeaderTrees(headerTrees)
+      );
 
-      // Then, need to print every single entry of the record as a row.
-      todo('That');
+      // TODO: Then, need to print every single entry of the record as a row.
     }
   }
   else {
