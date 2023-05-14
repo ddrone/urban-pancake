@@ -1,5 +1,5 @@
 {
-  "__comment": "Random JSON from WaniKani API responses: https://docs.api.wanikani.com/20170710/#get-all-assignments",
+  "__comment": "Random JSON from WaniKani API responses with null fields removed: https://docs.api.wanikani.com/20170710/#get-all-assignments",
   "object": "collection",
   "url": "https://api.wanikani.com/v2/assignments",
   "pages": {
