@@ -26,6 +26,9 @@ export function concatPrefix(s: string, prefix?: string) {
   if (prefix === undefined) {
     return s;
   }
+  else if (prefix.endsWith(']') || s.startsWith('[')) {
+    return `${prefix}${s}`;
+  }
   return `${prefix}.${s}`;
 }
 
