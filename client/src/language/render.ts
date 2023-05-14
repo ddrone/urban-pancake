@@ -3,11 +3,12 @@ import { Type } from './types';
 import { Json, JsonArray, JsonObject } from '../utils/json';
 import { todo } from '../utils/todo';
 import { buildHeaderTrees, printRecordEntry, renderHeaderTrees } from './render/array_of_records';
+import { renderRecord } from './render/record';
 
 
 export function printValue(type: Type, value: Json): m.Child {
   if (type.kind === 'record') {
-    todo('Implement record printing')
+    return renderRecord(type.items, value as JsonObject);
   }
   if (type.kind === 'array') {
     const arr = value as JsonArray;

@@ -3,6 +3,7 @@ import { Json, readJson } from '../utils/json';
 import { Type } from './types';
 import { inferType } from './typecheck';
 import { printValue } from './render';
+import example from './data/wanikani.json';
 
 class Input {
   rawInput: string;
@@ -21,6 +22,11 @@ class Input {
 export class Repl implements m.ClassComponent {
   inputs: Input[] = [];
   textarea: HTMLTextAreaElement = undefined as any;
+
+  oncreate() {
+    this.inputs.push(new Input(JSON.stringify(example)));
+    m.redraw();
+  }
 
   handleEntry() {
     this.inputs.push(new Input(this.textarea.value));
