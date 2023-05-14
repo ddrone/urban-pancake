@@ -7,8 +7,8 @@ function checkType(json: Json, type: Type): boolean {
       if (!checkType(item, type.item)) {
         return false;
       }
-      return true;
     }
+    return true;
   }
   else if (isJsonObject(json) && type.kind === 'record') {
     const handledKeys = new Set<string>();
