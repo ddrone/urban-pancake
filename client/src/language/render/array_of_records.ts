@@ -22,7 +22,7 @@ function headerTreeLeaf(name: string): HeaderTree {
   }
 }
 
-function concatPrefix(s: string, prefix?: string) {
+export function concatPrefix(s: string, prefix?: string) {
   if (prefix === undefined) {
     return s;
   }

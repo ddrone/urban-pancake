@@ -8,7 +8,7 @@ import { renderRecord } from './render/record';
 
 export function printValue(type: Type, value: Json): m.Child {
   if (type.kind === 'record') {
-    return renderRecord(type.items, value as JsonObject);
+    return m('table.printed-value', renderRecord(type.items, value as JsonObject));
   }
   if (type.kind === 'array') {
     const arr = value as JsonArray;
