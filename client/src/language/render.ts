@@ -28,8 +28,6 @@ export function printValue(type: Type, value: Json): m.Child {
         renderHeaderTrees(headerTrees),
         arr.map(value => printRecordEntry(elementType.items, value as JsonObject))
       );
-
-      // TODO: Then, need to print every single entry of the record as a row.
     }
   }
   else {
