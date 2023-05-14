@@ -6,7 +6,6 @@ import { buildHeaderTrees, printRecordEntry, renderHeaderTrees } from './render/
 import { renderRecord } from './render/record';
 import { toTypedView } from './destruct';
 
-
 export function printValue(type: Type, value: Json): m.Child {
   const view = toTypedView(type, value);
   if (view.kind === 'record') {
