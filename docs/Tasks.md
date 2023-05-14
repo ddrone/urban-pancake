@@ -6,7 +6,7 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 
 * [ ] Write code to pretty-print complex data structures
   * [x] Sketch out an idea for REPL that is able to render data in other ways rather than just printing the text
-  * [ ] Printed out records should be displayed in a key-value table (two columns)
+  * [x] Printed out records should be displayed in a key-value table (two columns)
   * [ ] Refactoring: write out a function to descruct a pair of `[Type, Json]`
     * [ ] Also separate definitions of record and array types as pre-requisite
   * [x] Printed out array of records should be displayed in two-dimensional table
