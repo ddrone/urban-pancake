@@ -4,13 +4,16 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 
 ## Active
 
-* [ ] Start tackling the second part, adding an implementation of a programming language into the mix
+* [ ] Write code to pretty-print complex data structures
   * [x] Sketch out an idea for REPL that is able to render data in other ways rather than just printing the text
   * [ ] Printed out records should be displayed in a key-value table (two columns)
+  * [x] Printed out array of records should be displayed in two-dimensional table
     * [x] Finish the function that renders the header of a table for array of records
     * [x] Write the function that renders a record in array as a series of rows
-  * [ ] From the depths of my consciousness, a phrase "data cube" has appeared. Look into it.
-  * [ ] Also define a datatype of lists, and make it possible to print lists of records as a table with an arbitrary amount of columns
+  * [ ] Array of arrays should be displayed as two-dimensional grid
+* [ ] Start adding an implementation of an imperative programming language into the mix
+  * [ ] Make it possible to define numbers, booleans, strings and compute with them
+  * [ ] Define a datatype of lists, and make it possible to print lists of records as a table with an arbitrary amount of columns
   * [ ] Only then start to work on some computation rules. Start with arithmetics and function evaluation of recursive functions
 * [ ] Sketch out a plan for tackling the persistence issues
   * [ ] First big problem: schema migration, currently launching an old version can destroy added fields
@@ -22,6 +25,7 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
     * [ ] After implementing the workaround with saving the data upon losing the focus, do some research on tackling the data properly
 * [ ] Make it possible to run the application using different data store (for testing)
 * [ ] Make a video recording of the application in action
+* [ ] From the depths of my consciousness, a phrase "data cube" has appeared. Look into it.
 
 ## Completed
 
