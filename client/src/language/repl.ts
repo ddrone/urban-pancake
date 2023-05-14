@@ -3,7 +3,7 @@ import { Json, readJson } from '../utils/json';
 import { Type } from './types';
 import { inferType } from './typecheck';
 import { printValue } from './render';
-import example from './data/wanikani.json';
+import example from './data/records.json';
 
 class Input {
   rawInput: string;
@@ -41,6 +41,8 @@ export class Repl implements m.ClassComponent {
     return m('.card',
       input.rawInput,
       m('br'),
+      input.type === undefined &&
+        'Type error!',
       input.type !== undefined &&
         printValue(input.type, input.input),
     );
