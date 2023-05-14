@@ -3,3 +3,5 @@ export type Kinds<R> = {
 };
 
 export type Union<R> = R[keyof R];
+
+export type Data<R> = Union<Kinds<R>>;

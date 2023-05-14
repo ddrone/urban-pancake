@@ -1,4 +1,4 @@
-import { Kinds, Union } from "../utils/union";
+import { Data } from "../utils/union";
 
 export interface Validator<T> {
   validate(input: any): input is T
@@ -87,9 +87,9 @@ export function array<T>(inner: Validator<T>): Validator<T[]> {
   }
 }
 
-export function union<T extends Record<string, Record<string, Validator<any>>>>(inner: T): Validator<Union<Kinds<ValidatedKinds<T>>>> {
+export function union<T extends Record<string, Record<string, Validator<any>>>>(inner: T): Validator<Data<ValidatedKinds<T>>> {
   return {
-    validate(input: any): input is Union<Kinds<ValidatedKinds<T>>> {
+    validate(input: any): input is Data<ValidatedKinds<T>> {
       if (input === null || typeof input !== "object") {
         return false;
       }

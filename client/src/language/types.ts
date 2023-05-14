@@ -1,8 +1,8 @@
-import { Kinds, Union } from "../utils/union";
+import { Data } from "../utils/union";
 
 export type RecordEntry = [string, Type];
 
-export type Type = Union<Kinds<{
+export type Type = Data<{
   number: {},
   string: {},
   boolean: {},
@@ -12,9 +12,9 @@ export type Type = Union<Kinds<{
   array: {
     item: Type
   }
-}>>;
+}>;
 
-export type TypeObject = Union<Kinds<{
+export type TypeObject = Data<{
   number: {},
   string: {},
   boolean: {},
@@ -24,7 +24,7 @@ export type TypeObject = Union<Kinds<{
   array: {
     item: TypeObject
   }
-}>>;
+}>;
 
 export function toTypeObject(type: Type): TypeObject {
   switch (type.kind) {
