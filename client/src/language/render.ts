@@ -1,23 +1,24 @@
 import m from 'mithril';
 import { Type } from './types';
-import { Json, JsonArray, JsonObject } from '../utils/json';
+import { Json, JsonObject } from '../utils/json';
 import { todo } from '../utils/todo';
 import { buildHeaderTrees, printRecordEntry, renderHeaderTrees } from './render/array_of_records';
 import { renderRecord } from './render/record';
+import { toTypedView } from './destruct';
 
 
 export function printValue(type: Type, value: Json): m.Child {
-  if (type.kind === 'record') {
-    return m('table.printed-value', renderRecord(type.items, value as JsonObject));
+  const view = toTypedView(type, value);
+  if (view.kind === 'record') {
+    return m('table.printed-value', renderRecord(view.type.items, view.value));
   }
-  if (type.kind === 'array') {
-    const arr = value as JsonArray;
-
+  else if (view.kind === 'array') {
+    const arr = view.value;
     if (arr.length === 0) {
       return m('em', 'Empty array');
     }
 
-    const elementType = type.item;
+    const elementType = view.type.item;
 
     if (elementType.kind === 'array') {
       todo('Implement two-dimensional array printing');
@@ -30,9 +31,10 @@ export function printValue(type: Type, value: Json): m.Child {
         arr.map(value => printRecordEntry(elementType.items, value as JsonObject))
       );
     }
+
+    return todo('Implement the basic arrays');
   }
   else {
-    // Primitive types
-    return `${value}`;
+    return `${view.value}`;
   }
 }

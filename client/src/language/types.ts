@@ -2,16 +2,20 @@ import { Data } from "../utils/union";
 
 export type RecordEntry = [string, Type];
 
+export interface RecordType {
+  items: Map<string, Type>
+}
+
+export interface ArrayType {
+  item: Type
+}
+
 export type Type = Data<{
   number: {},
   string: {},
   boolean: {},
-  record: {
-    items: Map<string, Type>
-  },
-  array: {
-    item: Type
-  }
+  record: RecordType,
+  array: ArrayType,
 }>;
 
 export type TypeObject = Data<{
