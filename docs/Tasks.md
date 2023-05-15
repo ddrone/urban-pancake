@@ -4,15 +4,15 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 
 ## Active
 
-* [ ] Write code to pretty-print complex data structures
+* [x] Write code to pretty-print complex data structures
   * [x] Sketch out an idea for REPL that is able to render data in other ways rather than just printing the text
   * [x] Printed out records should be displayed in a key-value table (two columns)
-  * [ ] Refactoring: write out a function to descruct a pair of `[Type, Json]`
-    * [ ] Also separate definitions of record and array types as pre-requisite
+  * [x] Refactoring: write out a function to descruct a pair of `[Type, Json]`
+    * [x] Also separate definitions of record and array types as pre-requisite
   * [x] Printed out array of records should be displayed in two-dimensional table
     * [x] Finish the function that renders the header of a table for array of records
     * [x] Write the function that renders a record in array as a series of rows
-  * [ ] Array of arrays should be displayed as two-dimensional grid
+  * [x] Array of arrays should be displayed as two-dimensional grid
 * [ ] Start adding an implementation of an imperative programming language into the mix
   * [ ] Make it possible to define numbers, booleans, strings and compute with them
   * [ ] Define a datatype of lists, and make it possible to print lists of records as a table with an arbitrary amount of columns
