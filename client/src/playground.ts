@@ -1,11 +1,13 @@
 import m from 'mithril';
-import { buildAugmentedTree, buildTree, renderAugmentedTree } from './algorithms/naive_bst';
+import { Console, debug } from './language/graphic_console';
 
 export class Playground implements m.ClassComponent {
-  view(): m.Child {
-    const tree = buildTree(5, 2, 4, 3, 1);
+  oncreate() {
+    debug({ name: 'Andrew', age: 29 });
+    debug([[0, 1], [2, 3]]);
+  }
 
-    const augTree = buildAugmentedTree(tree.root!);
-    return renderAugmentedTree(augTree);
+  view(): m.Child {
+    return m(Console);
   }
 }
