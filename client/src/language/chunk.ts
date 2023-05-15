@@ -33,7 +33,7 @@ export class ChunkView implements m.ClassComponent<ChunkViewAttrs> {
       chunk.type === undefined && [
         chunk.rawInput,
         m('br'),
-        'Type error!'
+        m('span.red', 'Type error!'),
       ],
       chunk.type !== undefined &&
         printValue(chunk.type, chunk.input),
