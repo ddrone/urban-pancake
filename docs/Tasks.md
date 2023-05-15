@@ -13,6 +13,8 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
     * [x] Finish the function that renders the header of a table for array of records
     * [x] Write the function that renders a record in array as a series of rows
   * [x] Array of arrays should be displayed as two-dimensional grid
+* [ ] Make a "console" component that will be as easy to use as `console.log`, but with displaying structured data
+* [ ] Also maybe a similar thing, but with support for text cells as well, kind of "offline notebook" of sorts
 * [ ] Start adding an implementation of an imperative programming language into the mix
   * [ ] Make it possible to define numbers, booleans, strings and compute with them
   * [ ] Define a datatype of lists, and make it possible to print lists of records as a table with an arbitrary amount of columns
