@@ -24,18 +24,19 @@ interface ChunkViewAttrs {
 
 export class ChunkView implements m.ClassComponent<ChunkViewAttrs> {
   view(vnode: m.Vnode<ChunkViewAttrs>): m.Child {
-    const input = vnode.attrs.chunk;
-    if (input.input === undefined) {
-      return m('.card.red', input.rawInput);
+    const chunk = vnode.attrs.chunk;
+    if (chunk.input === undefined) {
+      return m('.card.red', chunk.rawInput);
     }
 
     return m('.card',
-      input.rawInput,
-      m('br'),
-      input.type === undefined &&
-        'Type error!',
-      input.type !== undefined &&
-        printValue(input.type, input.input),
+      chunk.type === undefined && [
+        chunk.rawInput,
+        m('br'),
+        'Type error!'
+      ],
+      chunk.type !== undefined &&
+        printValue(chunk.type, chunk.input),
     );
   }
 }
