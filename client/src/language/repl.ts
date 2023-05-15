@@ -5,7 +5,7 @@ import { inferType } from './typecheck';
 import { printValue } from './render';
 import example from './data/records.json';
 
-class Input {
+class Chunk {
   rawInput: string;
   input?: Json;
   type?: Type;
@@ -20,20 +20,20 @@ class Input {
 }
 
 export class Repl implements m.ClassComponent {
-  inputs: Input[] = [];
+  inputs: Chunk[] = [];
   textarea: HTMLTextAreaElement = undefined as any;
 
   oncreate() {
-    this.inputs.push(new Input(JSON.stringify(example)));
+    this.inputs.push(new Chunk(JSON.stringify(example)));
     m.redraw();
   }
 
   handleEntry() {
-    this.inputs.push(new Input(this.textarea.value));
+    this.inputs.push(new Chunk(this.textarea.value));
     this.textarea.value = '';
   }
 
-  renderInput(input: Input): m.Child {
+  renderInput(input: Chunk): m.Child {
     if (input.input === undefined) {
       return m('.card.red', input.rawInput);
     }
