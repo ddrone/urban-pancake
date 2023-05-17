@@ -13,7 +13,7 @@ export type FromSource<T> = {
   value: T
 }
 
-type SourceExpr = FromSource<Expr>;
+export type SourceExpr = FromSource<Expr>;
 export type Identifier = FromSource<string>;
 
 export type GenericExpr<E, Ident> = Data<{
@@ -23,11 +23,11 @@ export type GenericExpr<E, Ident> = Data<{
     right: E;
   },
   const: {
-    value: number;
+    constValue: number;
   },
   lookup: {
     name: Ident
   }
 }>;
 
-export type Expr = GenericExpr<{e: SourceExpr}, Identifier>;
+export type Expr = GenericExpr<{unpack: SourceExpr}, Identifier>;
