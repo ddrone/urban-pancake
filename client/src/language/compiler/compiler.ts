@@ -1,5 +1,5 @@
 import { Data } from "../../utils/union";
-import { FromSource, GenericExpr, Identifier, SourceExpr, Stmt } from "./ast";
+import { FromSource, GenericExpr, Identifier, SourceExpr, SourceStmt, Stmt } from "./ast";
 
 type FlatIdent = Data<{
   source: Identifier;
@@ -10,50 +10,76 @@ type FlatIdent = Data<{
 
 type FlatExpr = GenericExpr<FlatIdent, FlatIdent>;
 
-type FlatStmt = Stmt<FlatExpr, FlatIdent>;
+type FlatStmt = Stmt<FlatExpr, FlatIdent, FlatIdent>;
 
 class FlatCompiler {
   nextGenerated = 0;
-  sink: FlatExpr[] = [];
+  sink: FlatStmt[] = [];
 
-  generateIdent(expr: SourceExpr): FlatIdent {
+  generateIdent<T>(x: FromSource<T>): FlatIdent {
     const id = this.nextGenerated++;
     return {
       kind: 'generated',
-      range: expr.range,
+      range: x.range,
       value: id
     };
   }
 
-  compileExpr(expr: SourceExpr): FlatIdent {
+  pushExpr(source: SourceExpr, expr: FlatExpr, target?: FlatIdent): FlatIdent {
+    const ident = target ?? this.generateIdent(source);
+    const statement: FlatStmt = {
+      kind: 'assign',
+      expr,
+      name: ident
+    };
+    this.sink.push(statement);
+    return ident;
+  }
+
+  transformName(name: Identifier): FlatIdent {
+    return {
+      kind: 'source',
+      ...name
+    };
+  }
+
+  compileExpr(expr: SourceExpr, target?: FlatIdent): FlatIdent {
     switch (expr.value.kind) {
       case 'const':
-        this.sink.push({
+        return this.pushExpr(expr, {
           kind: 'const',
           constValue: expr.value.constValue
-        });
-        break;
+        }, target);
       case 'lookup':
-        const transformedName: FlatIdent = {
-          kind: 'source',
-          ...expr.value.name
-        };
-        this.sink.push({
-          kind: 'lookup',
-          name: transformedName
-        });
         // No need to generate a new name for an existing lookup
-        return transformedName;
+        return this.transformName(expr.value.name);
       case 'binary':
         const left = this.compileExpr(expr.value.left.unpack);
         const right = this.compileExpr(expr.value.right.unpack);
-        this.sink.push({
+        return this.pushExpr(expr, {
           kind: 'binary',
           left,
           op: expr.value.op,
           right
-        });
+        }, target);
     }
-    return this.generateIdent(expr);
+  }
+
+  compileStmt(stmt: SourceStmt) {
+    switch (stmt.value.kind) {
+      case 'assign': {
+        const name = this.transformName(stmt.value.name);
+        this.compileExpr(stmt.value.expr, name);
+        break;
+      }
+      case 'print': {
+        const name = this.generateIdent(stmt);
+        this.compileExpr(stmt.value.expr, name);
+        this.sink.push({
+          kind: 'print',
+          expr: name
+        });
+      }
+    }
   }
 }

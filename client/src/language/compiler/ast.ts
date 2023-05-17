@@ -32,14 +32,14 @@ export type GenericExpr<E, Ident> = Data<{
 
 export type Expr = GenericExpr<{unpack: SourceExpr}, Identifier>;
 
-export type Stmt<E, Ident> = Data<{
+export type Stmt<E, Ident, P> = Data<{
   assign: {
     name: Ident;
     expr: E
   };
   print: {
-    expr: E
+    expr: P
   }
 }>;
 
-export type SourceStmt = FromSource<Stmt<SourceExpr, Identifier>>;
+export type SourceStmt = FromSource<Stmt<SourceExpr, Identifier, SourceExpr>>;
