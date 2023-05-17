@@ -15,7 +15,7 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
   * [x] Array of arrays should be displayed as two-dimensional grid
 * [x] Make a "console" component that will be as easy to use as `console.log`, but with displaying structured data
 * [ ] Start adding an implementation of an imperative programming language into the mix
-  * [ ] Compilation from language with assignments and recursive expressions to SSA form, preserving source information
+  * [ ] Compilation from language with assignments and recursive expressions to SSA-like form, preserving source information
   * [ ] Write an interactive UI to observe the transformations that are happening
   * [ ] Make it possible to define numbers, booleans, strings and compute with them
   * [ ] Define a datatype of lists, and make it possible to print lists of records as a table with an arbitrary amount of columns

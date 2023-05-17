@@ -13,10 +13,10 @@ export type FromSource<T> = {
   value: T
 }
 
-type E = FromSource<Expr>;
-type Identifier = FromSource<string>;
+type SourceExpr = FromSource<Expr>;
+export type Identifier = FromSource<string>;
 
-type Expr = Data<{
+export type GenericExpr<E, Ident> = Data<{
   binary: {
     left: E;
     op: Binop;
@@ -26,6 +26,8 @@ type Expr = Data<{
     value: number;
   },
   lookup: {
-    name: Identifier;
+    name: Ident
   }
 }>;
+
+export type Expr = GenericExpr<{e: SourceExpr}, Identifier>;
