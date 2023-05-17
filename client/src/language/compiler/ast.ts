@@ -31,3 +31,15 @@ export type GenericExpr<E, Ident> = Data<{
 }>;
 
 export type Expr = GenericExpr<{unpack: SourceExpr}, Identifier>;
+
+export type Stmt<E, Ident> = Data<{
+  assign: {
+    name: Ident;
+    expr: E
+  };
+  print: {
+    expr: E
+  }
+}>;
+
+export type SourceStmt = FromSource<Stmt<SourceExpr, Identifier>>;

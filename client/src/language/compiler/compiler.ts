@@ -1,5 +1,5 @@
 import { Data } from "../../utils/union";
-import { FromSource, GenericExpr, Identifier, SourceExpr } from "./ast";
+import { FromSource, GenericExpr, Identifier, SourceExpr, Stmt } from "./ast";
 
 type FlatIdent = Data<{
   source: Identifier;
@@ -9,6 +9,8 @@ type FlatIdent = Data<{
 }>;
 
 type FlatExpr = GenericExpr<FlatIdent, FlatIdent>;
+
+type FlatStmt = Stmt<FlatExpr, FlatIdent>;
 
 class FlatCompiler {
   nextGenerated = 0;
@@ -23,7 +25,7 @@ class FlatCompiler {
     };
   }
 
-  compile(expr: SourceExpr): FlatIdent {
+  compileExpr(expr: SourceExpr): FlatIdent {
     switch (expr.value.kind) {
       case 'const':
         this.sink.push({
@@ -43,8 +45,8 @@ class FlatCompiler {
         // No need to generate a new name for an existing lookup
         return transformedName;
       case 'binary':
-        const left = this.compile(expr.value.left.unpack);
-        const right = this.compile(expr.value.right.unpack);
+        const left = this.compileExpr(expr.value.left.unpack);
+        const right = this.compileExpr(expr.value.right.unpack);
         this.sink.push({
           kind: 'binary',
           left,
