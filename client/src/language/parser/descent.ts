@@ -70,7 +70,7 @@ class Parser {
     return result;
   }
 
-  try<T>(f: () => T): T|undefined {
+  tryParse<T>(f: () => T): T|undefined {
     const saved = this.position;
     try {
       return f();
