@@ -1,11 +1,11 @@
 import m from 'mithril';
-import { Console, debug } from './language/graphic_console';
-import { regexParser } from './language/parser/parser_combinators';
+import { Console } from './language/graphic_console';
+import { Parser } from './language/parser/descent';
 
 export class Playground implements m.ClassComponent {
   oncreate() {
-    const parser = regexParser(/[0-9]+/);
-    debug(parser.start('102938 test') as any);
+    const parser = new Parser('2 + 2 * 2');
+    console.log(parser.expr1());
   }
 
   view(): m.Child {

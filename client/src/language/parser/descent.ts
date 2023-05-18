@@ -1,10 +1,10 @@
-import { FromSource } from "../compiler/ast";
+import { Binop, Expr, FromSource, GenericExpr, Identifier, SourceExpr } from "../compiler/ast";
 
 class ParseError {
 }
 
 // More like "descent into madness" rather than "recursive descent"
-class Parser {
+export class Parser {
   source: string;
   position = 0;
 
@@ -58,15 +58,81 @@ class Parser {
   }
 
   // Functions ending with "Token" are supposed to consume whitespace after themselves
-  numberToken(): number {
-    const result = this.regex(this.numberRegex);
+  numberToken(): FromSource<number> {
+    const result = this.withSource(() => this.regex(this.numberRegex));
     this.ws();
-    return parseInt(result, 10);
+    return {
+      range: result.range,
+      value: parseInt(result.value, 10)
+    }
   }
 
-  identToken(): string {
-    const result = this.regex(this.numberRegex);
+  identToken(): Identifier {
+    const result = this.withSource(() => this.regex(this.numberRegex));
     this.ws();
+    return result;
+  }
+
+  expr1(): SourceExpr {
+    return this.assocLeft('+', () => this.expr2())
+  }
+
+  expr2(): SourceExpr {
+    return this.assocLeft('*', () => this.expr3())
+  }
+
+  expr3(): SourceExpr {
+    const literal = this.tryParse(() => this.numberToken());
+    if (literal !== undefined) {
+      return {
+        range: literal.range,
+        value: {
+          kind: 'const',
+          constValue: literal.value
+        }
+      }
+    }
+
+    const ident = this.tryParse(() => this.identToken());
+    if (ident !== undefined) {
+      return {
+        range: ident.range,
+        value: {
+          kind: 'lookup',
+          name: ident
+        }
+      }
+    }
+
+    return this.withSource(() => {
+      this.literalToken('(');
+      const result = this.expr1();
+      this.literalToken(')');
+      return result.value;
+    });
+  }
+
+  assocLeft(op: Binop, inner: () => SourceExpr): SourceExpr {
+    let result: SourceExpr = inner();
+    while (true) {
+      if (this.tryParse(() => this.literal(op)) === undefined) {
+        break;
+      }
+      const next = inner();
+      result = {
+        range: {
+          startOffset: result.range.startOffset,
+          endOffset: next.range.endOffset
+        },
+        value: {
+          kind: 'binary',
+          left: { unpack: result },
+          op,
+          right: { unpack: next }
+        }
+      }
+    }
+
     return result;
   }
 
