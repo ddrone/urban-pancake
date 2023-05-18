@@ -37,6 +37,27 @@ export function regexParser(pattern: RegExp): Parser<string> {
   return new RegexParser(pattern);
 }
 
+export function lazy<T>(fn: () => Parser<T>): Parser<T> {
+  return new LazyParser(fn);
+}
+
+class LazyParser<T> extends Parser<T> {
+  fn: () => Parser<T>;
+  cached?: Parser<T>;
+
+  constructor(fn: () => Parser<T>) {
+    super();
+    this.fn = fn;
+  }
+
+  parse(input: ParseInput): ParseOutput<T> | undefined {
+    if (this.cached === undefined) {
+      this.cached = this.fn();
+    }
+    return this.cached.parse(input);
+  }
+}
+
 class SourceParser<T> extends Parser<FromSource<T>> {
   inner: Parser<T>;
 
