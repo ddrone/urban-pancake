@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Console, debug } from './language/graphic_console';
-import { regexParser } from './language/parser/parser';
+import { regexParser } from './language/parser/parser_combinators';
 
 export class Playground implements m.ClassComponent {
   oncreate() {
