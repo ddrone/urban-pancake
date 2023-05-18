@@ -2,7 +2,7 @@ import { Data } from "../../utils/union";
 
 export type Binop = '+' | '*';
 
-interface TextRange {
+export interface TextRange {
   // TODO: also add source name here
   startOffset: number;
   endOffset: number;
