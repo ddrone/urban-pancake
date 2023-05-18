@@ -44,7 +44,7 @@ export class Parser {
     return this.source.substring(start, end);
   }
 
-  literal(s: string) {
+  literalRaw(s: string) {
     if (this.source.indexOf(s, this.position) !== this.position) {
       throw new ParseError();
     }
@@ -52,9 +52,10 @@ export class Parser {
     this.position += s.length;
   }
 
-  literalToken(s: string) {
-    this.literal(s);
+  literalToken(s: string): string {
+    this.literalRaw(s);
     this.ws();
+    return s;
   }
 
   // Functions ending with "Token" are supposed to consume whitespace after themselves
@@ -115,7 +116,7 @@ export class Parser {
   assocLeft(op: Binop, inner: () => SourceExpr): SourceExpr {
     let result: SourceExpr = inner();
     while (true) {
-      if (this.tryParse(() => this.literal(op)) === undefined) {
+      if (this.tryParse(() => this.literalToken(op)) === undefined) {
         break;
       }
       const next = inner();
