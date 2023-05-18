@@ -13,13 +13,28 @@ interface ParseOutput<T> {
 abstract class Parser<T> {
   abstract parse(input: ParseInput): ParseOutput<T>|undefined;
 
+  start(input: string): ParseOutput<T> | undefined {
+    return this.parse({
+      source: input,
+      start: 0
+    });
+  }
+
   withSource(): Parser<FromSource<T>> {
     return new SourceParser(this);
   }
 
-  map<R>(f: (x: ParseOutput<T>) => R|undefined): Parser<R> {
+  mapOutput<R>(f: (x: ParseOutput<T>) => R|undefined): Parser<R> {
     return new MapParser(this, f);
   }
+
+  map<R>(f: (x: T) => R|undefined): Parser<R> {
+    return new MapParser(this, (input) => f(input.result));
+  }
+}
+
+export function regexParser(pattern: RegExp): Parser<string> {
+  return new RegexParser(pattern);
 }
 
 class SourceParser<T> extends Parser<FromSource<T>> {
@@ -72,6 +87,29 @@ class MapParser<T, R> extends Parser<R> {
     return {
       end: result.end,
       result: transformed
+    }
+  }
+}
+
+class RegexParser extends Parser<string> {
+  pattern: RegExp;
+
+  constructor(pattern: RegExp) {
+    super();
+    this.pattern = new RegExp(pattern, 'y');
+  }
+
+  parse(input: ParseInput): ParseOutput<string>|undefined {
+    this.pattern.lastIndex = input.start;
+    if (!this.pattern.test(input.source)) {
+      return undefined;
+    }
+
+    const end = this.pattern.lastIndex;
+
+    return {
+      end,
+      result: input.source.substring(input.start, end)
     }
   }
 }
