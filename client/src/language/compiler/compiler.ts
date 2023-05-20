@@ -1,18 +1,18 @@
 import { Data } from "../../utils/union";
 import { FromSource, GenericExpr, Identifier, SourceExpr, SourceStmt, Stmt } from "./ast";
 
-type FlatIdent = Data<{
+export type FlatIdent = Data<{
   source: Identifier;
   // Identifier is generated, but every identifier corresponds to an expression in original
   // source. This can be maintained during the translation.
   generated: FromSource<number>;
 }>;
 
-type FlatExpr = GenericExpr<FlatIdent, FlatIdent>;
+export type FlatExpr = GenericExpr<FlatIdent, FlatIdent>;
 
-type FlatStmt = Stmt<FlatExpr, FlatIdent, FlatIdent>;
+export type FlatStmt = Stmt<FlatExpr, FlatIdent, FlatIdent>;
 
-class FlatCompiler {
+export class FlatCompiler {
   nextGenerated = 0;
   sink: FlatStmt[] = [];
 
