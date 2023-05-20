@@ -1,4 +1,4 @@
-import { Binop, Expr, FromSource, GenericExpr, Identifier, Program, SourceExpr, SourceStmt, SourceStmtBase } from "../compiler/ast";
+import { Binop, FromSource, Identifier, Program, SourceExpr, SourceStmt, SourceStmtBase } from "../compiler/ast";
 
 class ParseError {
 }
