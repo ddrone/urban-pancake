@@ -16,8 +16,9 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 * [x] Make a "console" component that will be as easy to use as `console.log`, but with displaying structured data
 * [ ] Start adding an implementation of an imperative programming language into the mix
   * [x] Compilation from language with assignments and recursive expressions to SSA-like form, preserving source information
-  * [ ] Write a parser for the source language
-  * [ ] Write an interactive UI to observe the transformations that are happening
+  * [x] Write a parser for the source language
+  * [x] Write an interactive UI to observe the transformations that are happening
+  * [ ] Change the compiler pass such that no indemediate variables are generated for constants
   * [ ] Make it possible to define numbers, booleans, strings and compute with them
   * [ ] Define a datatype of lists, and make it possible to print lists of records as a table with an arbitrary amount of columns
   * [ ] Only then start to work on some computation rules. Start with arithmetics and function evaluation of recursive functions
