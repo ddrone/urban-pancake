@@ -42,4 +42,9 @@ export type Stmt<E, Ident, P> = Data<{
   }
 }>;
 
-export type SourceStmt = FromSource<Stmt<SourceExpr, Identifier, SourceExpr>>;
+export type SourceStmtBase = Stmt<SourceExpr, Identifier, SourceExpr>;
+export type SourceStmt = FromSource<SourceStmtBase>;
+
+export type Program = {
+  stmts: SourceStmt[];
+}

@@ -1,4 +1,4 @@
-import { Binop, Expr, FromSource, GenericExpr, Identifier, SourceExpr } from "../compiler/ast";
+import { Binop, Expr, FromSource, GenericExpr, Identifier, Program, SourceExpr, SourceStmt, SourceStmtBase } from "../compiler/ast";
 
 class ParseError {
 }
@@ -72,6 +72,59 @@ export class Parser {
     const result = this.withSource(() => this.regex(this.numberRegex));
     this.ws();
     return result;
+  }
+
+  program(): Program {
+    const stmts = this.iterate(() => this.stmt());
+    return {
+      stmts
+    }
+  }
+
+  iterate<T>(f: () => T): T[] {
+    const result: T[] = [];
+    while (true) {
+      const position = this.position;
+      const item = this.tryParse(f);
+      if (item === undefined) {
+        break;
+      }
+
+      if (this.position === position) {
+        throw new Error("argument to iterate should consume input");
+      }
+
+      result.push(item);
+    }
+
+    return result;
+  }
+
+  stmt(): SourceStmt {
+    return this.withSource(() => this.stmtBase());
+  }
+
+  stmtBase(): SourceStmtBase {
+    if (this.tryParse(() => this.literalToken('print')) !== undefined) {
+      this.literalToken('(');
+      const expr = this.expr1();
+      const result: SourceStmtBase = {
+        kind: 'print',
+        expr
+      }
+
+      this.literalToken(')');
+      return result;
+    }
+
+    const name = this.identToken();
+    this.literalToken('=');
+    const expr = this.expr1();
+    return {
+      kind: 'assign',
+      name,
+      expr
+    };
   }
 
   expr1(): SourceExpr {
