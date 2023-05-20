@@ -1,14 +1,22 @@
 import m from 'mithril';
 import { Console } from './language/graphic_console';
 import { Parser } from './language/parser/descent';
+import { IOBox } from './components/input_output';
 
 export class Playground implements m.ClassComponent {
   oncreate() {
-    const parser = new Parser('2 + 2 * 2');
-    console.log(parser.expr1());
   }
 
   view(): m.Child {
-    return m(Console);
+    return m('div',
+      m(IOBox, {
+        transform: (input) => {
+          const parser = new Parser(input);
+          const result = parser.program();
+          return JSON.stringify(result, null, 4);
+        }
+      }),
+      m(Console)
+    );
   }
 }

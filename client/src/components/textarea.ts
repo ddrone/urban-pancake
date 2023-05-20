@@ -3,14 +3,14 @@ import { PushdownSignal } from './pushdown_signal';
 
 export interface TextareaAttrs {
   onCtrlEnter: (input: string) => void;
-  clear: PushdownSignal;
+  clear?: PushdownSignal;
 }
 
 export class Textarea implements m.ClassComponent<TextareaAttrs> {
   dom: HTMLTextAreaElement = undefined as any;
 
   view(vnode: m.Vnode<TextareaAttrs>): m.Child {
-    if (vnode.attrs.clear.get()) {
+    if (vnode.attrs.clear !== undefined && vnode.attrs.clear.get()) {
       this.dom.value = '';
     }
 

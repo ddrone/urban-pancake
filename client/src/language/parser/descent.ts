@@ -69,7 +69,7 @@ export class Parser {
   }
 
   identToken(): Identifier {
-    const result = this.withSource(() => this.regex(this.numberRegex));
+    const result = this.withSource(() => this.regex(this.identRegex));
     this.ws();
     return result;
   }
