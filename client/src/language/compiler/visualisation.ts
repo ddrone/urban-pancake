@@ -10,22 +10,26 @@ export interface VisAttrs {
 export class Vis implements m.ClassComponent<VisAttrs> {
   highlightRange?: TextRange;
 
+  span(range: TextRange, content: m.Children): m.Child {
+    return m('span', {
+      onmouseover: () => {
+        this.highlightRange = range;
+      },
+      onmouseout: () => {
+        this.highlightRange = undefined;
+      }
+    }, content);
+  }
+
   renderIdent(ident: FlatIdent): m.Children {
     switch (ident.kind) {
       case 'generated':
-        return [
+        return this.span(ident.range, [
           'gen',
           m('sub', `${ident.value}`)
-        ]
+        ])
       case 'source':
-        return m('span', {
-          onmouseover: () => {
-            this.highlightRange = ident.range;
-          },
-          onmouseout: () => {
-            this.highlightRange = undefined;
-          }
-        }, ident.value)
+        return this.span(ident.range, ident.value)
     }
   }
 
