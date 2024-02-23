@@ -4,6 +4,16 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 
 ## Active
 
+Old list has a lot of unhinged stuff, will take some time to actually restore the context if I ever will get back on that train of thought ever again. Need to do some simpler things now:
+
+* [ ] Create a separate page to display inactive and finished projects
+* [ ] Hide inactive and finished projects from the main view
+* [ ] Add a way to see all the reminders
+* [ ] Implement a way to archive reminders
+* [ ] Improve scheduling of reminders
+
+## Active (old list)
+
 * [x] Write code to pretty-print complex data structures
   * [x] Sketch out an idea for REPL that is able to render data in other ways rather than just printing the text
   * [x] Printed out records should be displayed in a key-value table (two columns)
