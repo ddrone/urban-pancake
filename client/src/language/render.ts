@@ -1,7 +1,6 @@
 import m from 'mithril';
 import { Type, isPrimitiveType } from './types';
 import { Json, JsonObject } from '../utils/json';
-import { todo } from '../utils/todo';
 import { buildHeaderTrees, printCompactCellValue, printRecordEntry, renderHeaderTrees } from './render/array_of_records';
 import { renderRecord } from './render/record';
 import { toTypedView } from './destruct';

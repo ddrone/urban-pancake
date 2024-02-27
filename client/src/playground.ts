@@ -5,13 +5,6 @@ import { Textarea } from './components/textarea';
 import { FlatCompiler } from './language/compiler/compiler';
 import { Vis, VisAttrs } from './language/compiler/visualisation';
 
-// Currently only here for copy-paste purposes
-const program = `
-x = 10 + 2 * (3 + 4)
-y = x + x * x
-print(y)
-`;
-
 export class Playground implements m.ClassComponent {
   data?: VisAttrs;
 
