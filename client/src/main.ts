@@ -21,6 +21,8 @@ interface FlatComment {
   absTimestamp: number;
 }
 
+type RightTab = 'updates' | 'reminders';
+
 class Main implements m.ClassComponent {
   projects: ProjectState[] = [];
   reminders: Reminder[] = [];
@@ -28,6 +30,7 @@ class Main implements m.ClassComponent {
   newReminders: string[] = [];
   flatComments: Map<number, FlatComment[]> = new Map();
   showHistory = false;
+  rightTab: RightTab = 'updates';
 
   constructor() {
     loadState().then(state => {
@@ -147,23 +150,49 @@ class Main implements m.ClassComponent {
         }, 'Save state'),
       ),
       m('.column',
-        this.flatComments.size > 0 && [
-          m('h1', 'Last updates'),
-          Array.from(this.flatComments.entries()).map(([group, comments]) =>
-            m('div',
-              m('h2', levelNames[group]),
-              m('ul',
-                comments.map(fc => m('li',
-                  fc.comment,
-                  ' [',
-                  fc.timestamp.readable,
-                  ', ',
-                  m('i', this.projects[fc.projectIndex].project.description),
-                  ']',
-                ))
-              )
-            ))
+        m(Button, {
+          onclick: () => {
+            this.rightTab = 'updates';
+          },
+          disabled: this.rightTab === 'updates'
+        }, 'Last updates'),
+        m(Button, {
+          onclick: () => {
+            this.rightTab = 'reminders';
+          },
+          disabled: this.rightTab === 'reminders'
+        }, 'Reminders'),
+        this.rightTab === 'updates' && [
+          this.flatComments.size > 0 && [
+            m('h1', 'Last updates'),
+            Array.from(this.flatComments.entries()).map(([group, comments]) =>
+              m('div',
+                m('h2', levelNames[group]),
+                m('ul',
+                  comments.map(fc => m('li',
+                    fc.comment,
+                    ' [',
+                    fc.timestamp.readable,
+                    ', ',
+                    m('i', this.projects[fc.projectIndex].project.description),
+                    ']',
+                  ))
+                )
+              ))
+          ],
+          this.flatComments.size === 0 && m('h1', 'No updates yet!'),
         ],
+        this.rightTab === 'reminders' && [
+          this.reminders.length > 0 && [
+            m('h1', 'Reminders'),
+            m('ul',
+              this.reminders.map(rem => m('li', [
+                rem.text,
+                ` (shown ${rem.timesShown} times)`
+              ])))
+          ],
+          this.reminders.length === 0 && m('h1', 'No reminders yet!')
+        ]
       )
     ]
   }
