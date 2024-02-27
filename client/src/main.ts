@@ -27,6 +27,7 @@ class Main implements m.ClassComponent {
   currentReminder?: ShownReminder;
   newReminders: string[] = [];
   flatComments: Map<number, FlatComment[]> = new Map();
+  showHistory = false;
 
   constructor() {
     loadState().then(state => {
@@ -101,13 +102,20 @@ class Main implements m.ClassComponent {
           m('h1', 'My projects'),
           activeProjects.map(project => m(ProjectEditor, project)),
         ],
-        doneProjects.length > 0 && [
-          m('h1', 'Recently done'),
-          doneProjects.map(project => m(ProjectEditor, project))
-        ],
-        inactiveProjects.length > 0 && [
-          m('h1', 'Inactive projects'),
-          inactiveProjects.map(project => m(ProjectEditor, project))
+        m(Button, {
+          onclick: () => {
+            this.showHistory = !this.showHistory;
+          }
+        }, this.showHistory ? 'Hide history' : 'Show history'),
+        this.showHistory && [
+          doneProjects.length > 0 && [
+            m('h1', 'Recently done'),
+            doneProjects.map(project => m(ProjectEditor, project))
+          ],
+          inactiveProjects.length > 0 && [
+            m('h1', 'Inactive projects'),
+            inactiveProjects.map(project => m(ProjectEditor, project))
+          ],
         ],
         m(TextInput, {
           buttonText: 'Add project',

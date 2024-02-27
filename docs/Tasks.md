@@ -6,11 +6,13 @@ Github issues is too much overhead and clicking on the UI things. Therefore, the
 
 Old list has a lot of unhinged stuff, will take some time to actually restore the context if I ever will get back on that train of thought ever again. Need to do some simpler things now:
 
-* [ ] Create a separate page to display inactive and finished projects
-* [ ] Hide inactive and finished projects from the main view
+* [x] Hide inactive and finished projects from the main view
+  * Implemented a button toggling inactive and completed projects in and out of the current view
 * [ ] Add a way to see all the reminders
 * [ ] Implement a way to archive reminders
 * [ ] Improve scheduling of reminders
+* [ ] Create a separate page to display inactive and finished projects
+  * Moved down in priority, decided to implement history toggle on the same page for now
 
 ## Active (old list)
 
