@@ -8,7 +8,9 @@ Old list has a lot of unhinged stuff, will take some time to actually restore th
 
 * [x] Hide inactive and finished projects from the main view
   * Implemented a button toggling inactive and completed projects in and out of the current view
-* [ ] Add a way to see all the reminders
+* [x] Add a way to see all the reminders
+* [ ] Implement a bump down update: just a way to get the project down to the list if I'm not in the mood to work on it at the moment. Still display it in a list of updates, actually, as it's something that I will be able to start to pay attention to.
+* [ ] Just to make it more useful and not to have a separate paper notebook for this: implement a way to have weekly task list
 * [ ] Implement a way to archive reminders
 * [ ] Improve scheduling of reminders
 * [ ] Create a separate page to display inactive and finished projects
