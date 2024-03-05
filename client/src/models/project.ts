@@ -14,12 +14,16 @@ const updateFields = {
 
   comment: {
     comment: str
-  }
+  },
+
+  bumpdown: {}
 };
+
+const allUpdates = union(updateFields);
 
 const updateModel = record({
   timestamp: num,
-  content: union(updateFields)
+  content: allUpdates
 });
 
 export const projectModel = record({
@@ -33,6 +37,8 @@ export const projectModel = record({
 export type Status = Validated<typeof status>;
 
 export type Update = Validated<typeof updateModel>;
+
+export type UpdateContent = Validated<typeof allUpdates>;
 
 export type Project = Validated<typeof projectModel>;
 

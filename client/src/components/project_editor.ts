@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Project, Status, Update } from '../models/project';
+import { Project, Status, Update, UpdateContent } from '../models/project';
 import { relativeToNow } from '../utils/timestamp';
 import { Button } from './button';
 import { TextInput } from './text_input';
@@ -7,6 +7,15 @@ import { platform } from '../platform/platform';
 
 export interface ProjectState {
   project: Project
+}
+
+function pushUpdate(project: Project, content: UpdateContent) {
+  const ts = Date.now();
+  project.lastUpdated = ts
+  project.updates.push({
+    timestamp: ts,
+    content
+  });
 }
 
 export class ProjectEditor implements m.ClassComponent<ProjectState> {
@@ -39,6 +48,9 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
         // TODO: shouldn't be there
         return null;
       }
+      case 'bumpdown': {
+        return m('.small', 'Bumped down ', this.renderTimestamp(update.timestamp));
+      }
     }
   }
 
@@ -62,16 +74,11 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
   }
 
   setStatus(project: Project, status: Status) {
-    const ts = Date.now();
-    project.lastUpdated = ts;
     project.status = status,
-    project.updates.push({
-      timestamp: Date.now(),
-      content: {
-        kind: 'update',
-        status: status,
-        description: undefined,
-      }
+    pushUpdate(project, {
+      kind: 'update',
+      status: status,
+      description: undefined,
     });
   }
 
@@ -99,32 +106,22 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
       m(TextInput, {
         buttonText: 'Add comment',
         onEntry(value) {
-          const ts = Date.now();
-          project.lastUpdated = ts;
-          project.updates.push({
-            timestamp: ts,
-            content: {
-              kind: 'comment',
-              comment: value
-            }
-          })
+          pushUpdate(project, {
+            kind: 'comment',
+            comment: value
+          });
         },
       }),
       m(Button, {
         onclick: () => {
           const result = prompt("Rename project", project.description);
           if (result !== null) {
-            const ts = Date.now();
-            project.lastUpdated = ts;
-            project.updates.push({
-              timestamp: ts,
-              content: {
-                kind: 'update',
-                description: result,
-                status: undefined
-              }
-            });
             project.description = result;
+            pushUpdate(project, {
+              kind: 'update',
+              description: result,
+              status: undefined
+            });
           }
         }
       }, 'Rename'),
@@ -154,7 +151,14 @@ export class ProjectEditor implements m.ClassComponent<ProjectState> {
             m.redraw();
           }
         }
-      }, 'Associate file')
+      }, 'Associate file'),
+      m('button', {
+        onclick: () => {
+          pushUpdate(project, {
+            kind: 'bumpdown'
+          });
+        }
+      }, 'Bump down')
     );
   }
 }
